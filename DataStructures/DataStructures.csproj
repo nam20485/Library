@@ -4,6 +4,11 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <RootNamespace>Library.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>	 
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Utils\Utils.csproj" />
+  </ItemGroup>
 
 </Project>
