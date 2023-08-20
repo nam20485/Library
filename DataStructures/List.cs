@@ -4,14 +4,14 @@ using Library.Utils;
 
 namespace Library.DataStructures
 {
-    public class List<TItem> : IList<TItem>, IReadOnlyList<TItem>
+    public class List<TValue> : IList<TValue>, IReadOnlyList<TValue>
     {
         private const int DefaultCapacity = 4;        
 
         /// <summary>
         /// The TItem's we are holding
         /// </summary>
-        private TItem[] _items;
+        private TValue[] _items;
 
         /// <summary>
         /// Number of actual items being held in the array, i.e. Count
@@ -33,7 +33,7 @@ namespace Library.DataStructures
         public List(int capacity)
         {
             _size = 0;                        
-            _items = Array.Empty<TItem>();
+            _items = Array.Empty<TValue>();
             // Capacity will create the TItem[]
             Capacity = capacity;
         }
@@ -42,7 +42,7 @@ namespace Library.DataStructures
         /// Instantiate a new list and copies all of the items from the given collection in.
         /// </summary>
         /// <param name="collection">IEnumerable to copy elements from.</param>
-        public List(IEnumerable<TItem> collection)
+        public List(IEnumerable<TValue> collection)
             : this(collection.Count())
         {
             // copy items
@@ -62,7 +62,7 @@ namespace Library.DataStructures
                 {
                     if (value > 0)
                     {
-                        var newItems = new TItem[value];
+                        var newItems = new TValue[value];
                         if (_size > 0)
                         {
                             Array.Copy(_items, newItems, _size);
@@ -71,13 +71,13 @@ namespace Library.DataStructures
                     }
                     else
                     {
-                        _items = Array.Empty<TItem>();
+                        _items = Array.Empty<TValue>();
                     }
                 }
             }
         }
 
-        public TItem this[int index]
+        public TValue this[int index]
         {
             get
             {
@@ -103,8 +103,8 @@ namespace Library.DataStructures
         /// <summary>
         /// Add an item to the end of the list.
         /// </summary>
-        /// <param name="item"><typeparamref name="TItem"/> to add</param>
-        public void Add(TItem item)
+        /// <param name="item"><typeparamref name="TValue"/> to add</param>
+        public void Add(TValue item)
         {
             // increase capacity if necessary
             EnsureCapacity(_size+1);
@@ -144,22 +144,22 @@ namespace Library.DataStructures
             }
         }
 
-        public bool Contains(TItem item)
+        public bool Contains(TValue item)
         {
             return IndexOf(item) != -1;
         }
 
-        public void CopyTo(TItem[] array, int arrayIndex)
+        public void CopyTo(TValue[] array, int arrayIndex)
         {            
             Array.Copy(_items, 0, array, arrayIndex, _size);
         }
        
-        public int IndexOf(TItem item)
+        public int IndexOf(TValue item)
         {
             return Array.IndexOf(_items, item, 0, _size);
         }
 
-        public void Insert(int index, TItem item)
+        public void Insert(int index, TValue item)
         {
             // item can be inserted at the end
             if (index > _size)
@@ -175,7 +175,7 @@ namespace Library.DataStructures
             _size++;
         }
 
-        public bool Remove(TItem item)
+        public bool Remove(TValue item)
         {
             var index = IndexOf(item);
             if (index >= 0)
@@ -205,7 +205,7 @@ namespace Library.DataStructures
             return GetEnumerator();   
         }
 
-        public IEnumerator<TItem> GetEnumerator()
+        public IEnumerator<TValue> GetEnumerator()
         {
             foreach (var item in _items)
             {
