@@ -1,24 +1,27 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections;
 
 namespace Library.DataStructures
 {
-    public class Queue<TValue> : ICollection<TValue>
+    public class Queue<TValue> : IEnumerable<TValue>
     {
-        public int Count => throw new NotImplementedException();
+        private readonly List<TValue> _items;
 
-        public bool IsReadOnly => throw new NotImplementedException();
+        public int Count => _items.Count;
+
+        public bool IsReadOnly => false;
 
         public Queue()
         {
-
+            _items = new List<TValue>();
         }
 
         public Queue(IEnumerable<TValue> collection)
+            : this()
+        {
+            AddRange(collection);
+        }
+
+        private void AddRange(IEnumerable<TValue> collection)
         {
             foreach (var item in collection)
             {
@@ -33,47 +36,65 @@ namespace Library.DataStructures
 
         public TValue Dequeue()
         {
-            throw new NotImplementedException();
+            if (IsEmpty())
+            {
+                throw new InvalidOperationException("Stack is empty");
+            }
+
+            var item = _items[0];
+            _items.RemoveFirst();
+            return item;
+        }
+
+        public bool IsEmpty()
+        {
+            return Count == 0;
         }
 
         public TValue Peek()
         {
-            throw new NotImplementedException();
+            if (IsEmpty())
+            {
+                throw new InvalidOperationException("Stack is empty");
+            }
+
+            return _items[0];
         }
 
         public void Add(TValue item)
         {
-            throw new NotImplementedException();
+            _items.Add(item);
         }
 
         public void Clear()
         {
-            throw new NotImplementedException();
+            _items.Clear();
         }
 
         public bool Contains(TValue item)
         {
-            throw new NotImplementedException();
+            return _items.Contains(item);
         }
 
         public void CopyTo(TValue[] array, int arrayIndex)
-        {
-            throw new NotImplementedException();
+        {            
+            foreach (var item in this)
+            {
+                array[arrayIndex++] = item;
+            }
         }
 
         public IEnumerator<TValue> GetEnumerator()
         {
-            throw new NotImplementedException();
-        }
-
-        public bool Remove(TValue item)
-        {
-            throw new NotImplementedException();
-        }
+            foreach (var item in _items)
+            {
+                yield return item;
+            }
+        }   
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return GetEnumerator();
         }
     }
 }
