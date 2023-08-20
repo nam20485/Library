@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library.DataStructures
 {
-    public class SortedList<TItem> : List<TItem>
+    internal class Heap
     {
     }
 }
