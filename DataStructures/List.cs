@@ -27,12 +27,13 @@ namespace Library.DataStructures
         }
 
         /// <summary>
-        /// Instantiates a new list with the default capacity
+        /// Instantiates a new list with the default capacity.
         /// </summary>
-        /// <param name="capacity">Capacity for new list</param>
+        /// <param name="capacity">Capacity for new list.</param>
         public List(int capacity)
         {
-            _size = 0;
+            _size = 0;                        
+            _items = Array.Empty<TItem>();
             // Capacity will create the TItem[]
             Capacity = capacity;
         }
