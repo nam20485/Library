@@ -33,6 +33,7 @@ namespace Library.DataStructures
         public List(int capacity)
         {
             _size = 0;
+            // Capacity will create the TItem[]
             Capacity = capacity;
         }
 
