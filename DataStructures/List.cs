@@ -4,7 +4,7 @@ using Library.Utils;
 
 namespace Library.DataStructures
 {
-    public class List<TValue> : IList<TValue>, IReadOnlyList<TValue>
+    public class List<TValue> : IList<TValue>
     {
         private const int DefaultCapacity = 4;        
 
@@ -45,8 +45,7 @@ namespace Library.DataStructures
         public List(IEnumerable<TValue> collection)
             : this(collection.Count())
         {
-            // copy items
-            Array.Copy(collection.ToArray(), _items, collection.Count());            
+            AddRange(collection);      
         }
 
         // size of array (max amount we can currently hold w/o resizing, not count of actual items in this)
@@ -77,6 +76,9 @@ namespace Library.DataStructures
             }
         }
 
+        //
+        //  IList interface implementation
+        //
         public TValue this[int index]
         {
             get
@@ -95,65 +97,7 @@ namespace Library.DataStructures
                 Insert(index, value);
             }
         }
-
-        public int Count => _size;
-
-        public bool IsReadOnly => false;
-
-        /// <summary>
-        /// Add an item to the end of the list.
-        /// </summary>
-        /// <param name="item"><typeparamref name="TValue"/> to add</param>
-        public void Add(TValue item)
-        {
-            // increase capacity if necessary
-            EnsureCapacity(_size+1);
-
-            // add the item
-            var index = _size;
-            _items[index] = item;
-            _size++;
-        }
-
-        private void EnsureCapacity(int minRequired)
-        {
-            if (Capacity < minRequired)
-            {
-                var newCapacity = Math.Max(Capacity * 2, minRequired);
-                if (newCapacity < DefaultCapacity)
-                {
-                    newCapacity = DefaultCapacity;
-                }
-
-                if (newCapacity > Array.MaxLength)
-                {
-                    newCapacity = Array.MaxLength;
-                }
-
-                Capacity = newCapacity;
-            }
-        }
-      
-        public void Clear()
-        {
-            var sizeWas = _size;
-            _size = 0;
-            if (sizeWas > 0)
-            {                
-                Array.Clear(_items, 0, _size);
-            }
-        }
-
-        public bool Contains(TValue item)
-        {
-            return IndexOf(item) != -1;
-        }
-
-        public void CopyTo(TValue[] array, int arrayIndex)
-        {            
-            Array.Copy(_items, 0, array, arrayIndex, _size);
-        }
-       
+              
         public int IndexOf(TValue item)
         {
             return Array.IndexOf(_items, item, 0, _size);
@@ -175,6 +119,52 @@ namespace Library.DataStructures
             _size++;
         }
 
+        public void RemoveAt(int index)
+        {
+            if (index >= _size)
+            {
+                throw new ArgumentOutOfRangeException($"{Caller.MemberNameLocation()} - {nameof(index)}: {index} (size = {_size})");
+            }
+
+            _size--;
+            Array.Copy(_items, index + 1, _items, index, _size - index);
+        }
+
+        //
+        // ICollection interface implementation
+        //
+        public int Count => _size;
+        public bool IsReadOnly => false;
+
+        /// <summary>
+        /// Add an item to the end of the list.
+        /// </summary>
+        /// <param name="item"><typeparamref name="TValue"/> to add</param>
+        public void Add(TValue item)
+        {
+            // increase capacity if necessary
+            EnsureCapacity(_size + 1);
+
+            // add the item
+            var index = _size;
+            _items[index] = item;
+            _size++;
+        }
+        public void Clear()
+        {
+            var sizeWas = _size;
+            _size = 0;
+            if (sizeWas > 0)
+            {                
+                Array.Clear(_items, 0, _size);
+            }
+        }
+
+        public bool Contains(TValue item)
+        {
+            return IndexOf(item) != -1;
+        }
+
         public bool Remove(TValue item)
         {
             var index = IndexOf(item);
@@ -186,15 +176,37 @@ namespace Library.DataStructures
             return false;
         }
 
-        public void RemoveAt(int index)
+        public void CopyTo(TValue[] array, int arrayIndex)
+        {            
+            Array.Copy(_items, 0, array, arrayIndex, _size);
+        }        
+        
+        //
+        //  Extended methods
+        //
+        public void AddRange(IEnumerable<TValue> collection)
         {
-            if (index >= _size)
-            {
-                throw new ArgumentOutOfRangeException($"{Caller.MemberNameLocation()} - {nameof(index)}: {index} (size = {_size})");
-            }
+            // copy items
+            Array.Copy(collection.ToArray(), _items, collection.Count());
+        }
 
-            _size--;
-            Array.Copy(_items, index+1, _items, index, _size-index);
+        public void AddLast(TValue item)
+        {
+            Insert(Count, item);
+        }
+
+        public void AddFirst(TValue item)
+        {
+            Insert(0, item);
+        }
+        public void RemoveLast()
+        {
+            RemoveAt(Count - 1);
+        }
+
+        public void RemoveFirst()
+        {
+            RemoveAt(0);
         }
 
         //
@@ -210,6 +222,28 @@ namespace Library.DataStructures
             foreach (var item in _items)
             {
                 yield return item;
+            }
+        }
+
+        //
+        //  Private implementation
+        //
+        private void EnsureCapacity(int minRequired)
+        {
+            if (Capacity < minRequired)
+            {
+                var newCapacity = Math.Max(Capacity * 2, minRequired);
+                if (newCapacity < DefaultCapacity)
+                {
+                    newCapacity = DefaultCapacity;
+                }
+
+                if (newCapacity > Array.MaxLength)
+                {
+                    newCapacity = Array.MaxLength;
+                }
+
+                Capacity = newCapacity;
             }
         }
     }
