@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 
+using Library.Utils;
+
 namespace Library.DataStructures
 {
     public class List<TItem> : IList<TItem>, IReadOnlyList<TItem>
@@ -132,7 +134,12 @@ namespace Library.DataStructures
       
         public void Clear()
         {
+            var sizeWas = _size;
             _size = 0;
+            if (sizeWas > 0)
+            {                
+                Array.Clear(_items, 0, _size);
+            }
         }
 
         public bool Contains(TItem item)
@@ -147,21 +154,15 @@ namespace Library.DataStructures
        
         public int IndexOf(TItem item)
         {
-            for (int i = 0; i < _size; i++)
-            {
-                if (Equals(item, _items[i]))
-                {
-                    return i;
-                }
-            }
-            return -1;
+            return Array.IndexOf(_items, item, 0, _size);
         }
 
         public void Insert(int index, TItem item)
         {
+            // item can be inserted at the end
             if (index > _size)
             {
-                throw new ArgumentOutOfRangeException($"{nameof(index)}: {index} (size = {_size})");
+                throw new ArgumentOutOfRangeException($"{Caller.MemberNameLocation()} - {nameof(index)}: {index} (size = {_size})");
             }
 
             EnsureCapacity(_size + 1);
@@ -169,6 +170,7 @@ namespace Library.DataStructures
             // shift all elements at >= index up/back one index
             Array.Copy(_items, index, _items, index + 1, _size - index);
             _items[index] = item;
+            _size++;
         }
 
         public bool Remove(TItem item)
@@ -186,7 +188,7 @@ namespace Library.DataStructures
         {
             if (index >= _size)
             {
-                throw new ArgumentOutOfRangeException($"{nameof(index)}: {index} (size = {_size})");
+                throw new ArgumentOutOfRangeException($"{Caller.MemberNameLocation()} - {nameof(index)}: {index} (size = {_size})");
             }
 
             _size--;
