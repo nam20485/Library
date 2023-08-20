@@ -32,23 +32,25 @@ namespace Library.DataStructures
         }
 
         public TValue Pop()
-        {            
-            if (!IsEmpty())
+        {
+            if (IsEmpty())
             {
-                var item = Peek();
-                _items.RemoveAt(Count - 1);
-                return item;
+                throw new InvalidOperationException("Stack is empty");
             }
-            throw new InvalidOperationException("Stack is empty");
+
+            var item = Peek();
+            _items.RemoveAt(Count - 1);
+            return item;            
         }
 
         public TValue Peek()
-        {     
-            if (!IsEmpty())
+        {
+            if (IsEmpty())
             {
-                return _items[Count - 1];
+                throw new InvalidOperationException("Stack is empty");
             }
-            throw new InvalidOperationException("Stack is empty");
+
+            return _items[Count - 1];            
         }
 
         public void Add(TValue item)
