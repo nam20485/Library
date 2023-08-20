@@ -25,10 +25,7 @@ namespace Library.DataStructures
 
         public LinkedList(IEnumerable<TValue> collection)
         {
-            foreach (var item in collection)
-            {
-                Add(item);
-            }
+            AddRange(collection);
         }
 
         //
@@ -36,21 +33,29 @@ namespace Library.DataStructures
         //
         public int Count => _count;
 
-        public bool IsReadOnly => throw new NotImplementedException();
+        public bool IsReadOnly => false;
 
         /// <summary>
         /// Add value to end of the list
         /// </summary>
-        /// <param name="value">Item to add</param>
-        /// <exception cref="NotImplementedException"></exception>
+        /// <param name="value">Item to add</param>        
         public void Add(TValue value)
         {
             AddAfter(Last, value);
         }
 
+        public void AddRange(IEnumerable<TValue> collection)
+        {
+            foreach (var item in collection)
+            {
+                Add(item);
+            }
+        }
+
         public void Clear()
         {
             _head = null;
+            _tail = null;
         }        
 
         public bool Contains(TValue value)
@@ -60,6 +65,7 @@ namespace Library.DataStructures
 
         public void CopyTo(TValue[] array, int arrayIndex)
         {
+            // TODO: check bounds-cases and throw 
             var index = arrayIndex;
             foreach (var item in this)
             {
@@ -200,29 +206,7 @@ namespace Library.DataStructures
             else
             {
                 return false;
-            }        
-
-            //if (node != null)
-            //{
-            //    // node is head
-            //    if (node.Previous == null)
-            //    {
-            //        if (node.Next != null)
-            //        {
-            //            // there are nodes after _head, i.e. Count > 1
-            //            node.Next.Previous = null;
-            //        }
-            //        // make the next node the head (if only 1 element was in the list, then _head = null now)
-            //        _head = node.Next;
-            //        _tail = node.Next;
-            //    }
-            //    else
-            //    {
-            //        // node is not head
-
-            //    }
-            //}
-            //return false;
+            }                  
         }
 
         //
