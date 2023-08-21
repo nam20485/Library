@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Text;
 
 using Library.Utils;
 
@@ -35,7 +36,7 @@ namespace Library.DataStructures
             _size = 0;                        
             _items = Array.Empty<TValue>();
             // Capacity will create the TItem[]
-            Capacity = capacity;
+            EnsureCapacity(capacity);
         }
 
         /// <summary>
@@ -64,9 +65,9 @@ namespace Library.DataStructures
                         var newItems = new TValue[value];
                         if (_size > 0)
                         {
-                            Array.Copy(_items, newItems, _size);
-                            _items = newItems;
+                            Array.Copy(_items, newItems, _size);                            
                         }
+                        _items = newItems;
                     }
                     else
                     {
@@ -187,7 +188,9 @@ namespace Library.DataStructures
         public void AddRange(IEnumerable<TValue> collection)
         {
             // copy items
+            EnsureCapacity(collection.Count());           
             Array.Copy(collection.ToArray(), _items, collection.Count());
+            _size = collection.Count();
         }
 
         public void AddLast(TValue item)
@@ -245,6 +248,23 @@ namespace Library.DataStructures
 
                 Capacity = newCapacity;
             }
+        }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.Append('[');
+            for (int i = 0; i < Count; i++)
+            {
+                sb.Append(_items[i]);
+                if (i < Count - 1)
+                {
+                    sb.Append(", ");
+                }
+            }
+            sb.Append(']');
+            sb.Append($" ({Count})");
+            return sb.ToString();
         }
     }
 }
