@@ -90,12 +90,16 @@ namespace Library.DataStructures
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException($"{index} (size = {_size})");
+                    throw new ArgumentOutOfRangeException($"{Caller.MemberNameLocation()} - {nameof(index)}: {index} (size = {_size})");
                 }
             }
             set
             {
-                Insert(index, value);
+                if (index >= _size)
+                {
+                    throw new ArgumentOutOfRangeException($"{Caller.MemberNameLocation()} - {nameof(index)}: {index} (size = {_size})");
+                }
+                _items[index] = value;                
             }
         }
               
