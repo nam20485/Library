@@ -7,17 +7,7 @@ using System.Threading.Tasks;
 namespace Library.DataStructures
 {
     public static class DataStructureExtensions
-    {
-        public static TSource[] ToArray<TSource>(this List<TSource> source)
-        {
-            return source.ToArray();
-        }
-
-        //public static TSource[] ToArray<TSource>(this Heap<TSource> source)
-        //{
-        //    return source.ToArray();
-        //}
-
+    {     
         public static TSource[] ToArray<TSource>(this IDsCollection<TSource> source)
         {
             return source.ToArray();
