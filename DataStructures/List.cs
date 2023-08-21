@@ -5,7 +5,7 @@ using Library.Utils;
 
 namespace Library.DataStructures
 {
-    public class List<TValue> : IList<TValue>
+    public class List<TValue> : DsCollectionBase<TValue>, IList<TValue>
     {
         private const int DefaultCapacity = 4;        
 
@@ -138,14 +138,14 @@ namespace Library.DataStructures
         //
         // ICollection interface implementation
         //
-        public int Count => _size;
-        public bool IsReadOnly => false;
+        public override int Count => _size;
+        public bool IsReadOnly => false;      
 
         /// <summary>
         /// Add an item to the end of the list.
         /// </summary>
         /// <param name="item"><typeparamref name="TValue"/> to add</param>
-        public void Add(TValue item)
+        public override void Add(TValue item)
         {
             // increase capacity if necessary
             EnsureCapacity(_size + 1);
@@ -181,12 +181,7 @@ namespace Library.DataStructures
             return false;
         }
 
-        public void CopyTo(TValue[] array, int arrayIndex = 0)
-        {
-            CopyOnlyItemsTo(array, arrayIndex);
-        }    
-        
-        private void CopyOnlyItemsTo(TValue[] array, int arrayIndex = 0)
+        protected override void CopyOnlyItemsTo(TValue[] array, int arrayIndex = 0)
         {
             Array.Copy(_items, 0, array, arrayIndex, _size);
         }       
@@ -194,7 +189,7 @@ namespace Library.DataStructures
         //
         //  Extended methods
         //
-        public void AddRange(IEnumerable<TValue> collection)
+        public override void AddRange(IEnumerable<TValue> collection)
         {
             // copy items
             EnsureCapacity(collection.Count());           
@@ -223,13 +218,8 @@ namespace Library.DataStructures
 
         //
         //  IEnumerable<T> implementation
-        // 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();   
-        }
-
-        public IEnumerator<TValue> GetEnumerator()
+        //      
+        public override IEnumerator<TValue> GetEnumerator()
         {
             foreach (var item in _items)
             {
@@ -257,9 +247,9 @@ namespace Library.DataStructures
 
                 Capacity = newCapacity;
             }
-        }
+        }         
 
-        public override string ToString()
+        protected override string GetStringRepresentation()
         {
             var sb = new StringBuilder();
             sb.Append('[');
@@ -274,13 +264,6 @@ namespace Library.DataStructures
             sb.Append(']');
             sb.Append($" ({Count})");
             return sb.ToString();
-        }
-
-        public TValue[] ToArray()
-        {
-            var newArray = new TValue[Count];
-            CopyOnlyItemsTo(newArray);
-            return newArray;
         }
     }
 }

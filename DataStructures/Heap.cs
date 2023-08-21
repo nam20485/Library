@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 
 namespace Library.DataStructures
 {
-    public class Heap<TValue> : IEnumerable<TValue>
+    public class Heap<TValue> : DsCollectionBase<TValue>
     {
         protected readonly List<TValue> _items;
         protected int _heapSize = 0;
 
-        protected readonly IComparer<TValue> _comparer;        
+        protected readonly IComparer<TValue> _comparer;
+
+        public override int Count => _items.Count;
 
         public Heap()
             : this(Comparer<TValue>.Default)
@@ -125,19 +127,24 @@ namespace Library.DataStructures
             return heap.ToArray();
         }
 
-        public IEnumerator<TValue> GetEnumerator()
+        public override IEnumerator<TValue> GetEnumerator()
         {
             return _items.GetEnumerator();
         }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
-        public override string ToString()
+      
+        protected override string GetStringRepresentation()
         {
             return _items.ToString();
+        }
+
+        protected override void CopyOnlyItemsTo(TValue[] array, int arrayIndex = 0)
+        {
+            _items.CopyTo(array, arrayIndex);
+        }
+
+        public override void Add(TValue item)
+        {
+            throw new NotImplementedException();
         }
     }
 }

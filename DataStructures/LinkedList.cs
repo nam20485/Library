@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Library.DataStructures
 {
-    public class LinkedList<TValue> : ICollection<TValue>
+    public class LinkedList<TValue> : DsCollectionBase<TValue>, ICollection<TValue>
     {
         private Node? _head;
         private Node? _tail;
@@ -31,26 +31,18 @@ namespace Library.DataStructures
         //
         //  ICollection interface implementation
         //
-        public int Count => _count;
+        public override int Count => _count;
 
-        public bool IsReadOnly => false;
+        public bool IsReadOnly => false;        
 
         /// <summary>
         /// Add value to end of the list
         /// </summary>
         /// <param name="value">Item to add</param>        
-        public void Add(TValue value)
+        public override void Add(TValue? value)
         {
             AddAfter(Last, value);
-        }
-
-        public void AddRange(IEnumerable<TValue> collection)
-        {
-            foreach (var item in collection)
-            {
-                Add(item);
-            }
-        }
+        }       
 
         public void Clear()
         {
@@ -61,17 +53,7 @@ namespace Library.DataStructures
         public bool Contains(TValue value)
         {
             return Find(value) != null;
-        }
-
-        public void CopyTo(TValue[] array, int arrayIndex)
-        {
-            // TODO: check bounds-cases and throw 
-            var index = arrayIndex;
-            foreach (var item in this)
-            {
-                array[index++] = item;
-            }
-        }              
+        }                
 
         public bool Remove(TValue item)
         {
@@ -92,7 +74,7 @@ namespace Library.DataStructures
             AddBefore(First, value);            
         }
 
-        public void AddAfter(Node? node, TValue value)
+        public void AddAfter(Node? node, TValue? value)
         {
             var newNode = new Node(value)
             {
@@ -212,7 +194,7 @@ namespace Library.DataStructures
         //
         //  IEnumerable interface implementation
         //
-        public IEnumerator<TValue> GetEnumerator()
+        public override IEnumerator<TValue> GetEnumerator()
         {
             var current = _head;
             while (current != null)
@@ -220,14 +202,9 @@ namespace Library.DataStructures
                 yield return current.Value;
                 current = current.Next;
             }
-        }
+        }        
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
-        public override string ToString()
+        protected override string GetStringRepresentation()
         {
             var sb = new StringBuilder();
 
@@ -261,18 +238,28 @@ namespace Library.DataStructures
             //sb.AppendLine();
             sb.Append($"{new string(' ', head)}h");
             var tailPos = (tail - head) * 5 - 1;
-            sb.Append($"{new string(' ', tailPos > 0? tailPos : 0)}t");            
+            sb.Append($"{new string(' ', tailPos > 0 ? tailPos : 0)}t");
 
             return sb.ToString();
         }
 
+        protected override void CopyOnlyItemsTo(TValue[] array, int arrayIndex = 0)
+        {
+            // TODO: check bounds-cases and throw 
+            var index = arrayIndex;
+            foreach (var item in this)
+            {
+                array[index++] = item;
+            }
+        }
+
         public class Node
         {
-            public TValue Value { get; }
+            public TValue? Value { get; }
             public Node? Next { get; internal set; }    // only Library can set Next and Previous, not user
             public Node? Previous { get; internal set; }
 
-            public Node(TValue value)
+            public Node(TValue? value)
             {
                 Value = value;
                 Next = null;
