@@ -18,6 +18,9 @@ namespace Library.DataStructures
         /// Number of actual items being held in the array, i.e. Count
         /// </summary>
         private int _size;
+
+        // defer instantiating new zero-length arrays everytime small Lists are created
+        private static readonly TValue[] EmptyArray = Array.Empty<TValue>();
         
         /// <summary>
         /// Instantiates a new empty list.
@@ -33,10 +36,11 @@ namespace Library.DataStructures
         /// <param name="capacity">Capacity for new list.</param>
         public List(int capacity)
         {
-            _size = 0;                        
-            _items = Array.Empty<TValue>();
+            _size = 0;
+            _items = EmptyArray;
             // Capacity will create the TItem[]
-            EnsureCapacity(capacity);
+            //EnsureCapacity(capacity);
+            Capacity = capacity;
         }
 
         /// <summary>
@@ -71,7 +75,7 @@ namespace Library.DataStructures
                     }
                     else
                     {
-                        _items = Array.Empty<TValue>();
+                        _items = EmptyArray;
                     }
                 }
             }
