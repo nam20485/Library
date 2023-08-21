@@ -51,16 +51,16 @@ namespace Library.DataStructures
         // shift right by 1 to divide by 2, shift left by 1 to multiply by 2
         protected static int ParentIndex(int index) => (index - 1) >> 1;
         protected static int LeftChildIndex(int index) => (index << 1) + 1;
-        protected static int RightChildIndex(int index) => (index << 1) + 2;
+        protected static int RightChildIndex(int index) => LeftChildIndex(index) + 1;
 
         protected void Heapify(int index)
-        {
-            int largest;
+        {            
             var l = LeftChildIndex(index);
             var r = RightChildIndex(index);
 
-            // find largest
-            if (l <= _heapSize && _comparer.Compare(_items[l], _items[index]) > 0)                
+            // find largest between _items at indices l, r, & index
+            int largest;
+            if (l < _heapSize && _comparer.Compare(_items[l], _items[index]) > 0)                
             {
                 largest = l;
             }
@@ -68,13 +68,14 @@ namespace Library.DataStructures
             {
                 largest = index;
             }
-            if (r <= _heapSize && _comparer.Compare(_items[r], _items[largest]) > 0)
+            if (r < _heapSize && _comparer.Compare(_items[r], _items[largest]) > 0)
             {
                 largest = r;
             }
             // swap largest and index and then call Heapify on largest
             if (largest != index)
             {
+                // use Tuples to swap
                 (_items[index], _items[largest]) = (_items[largest], _items[index]);
                 Heapify(largest);
             }
@@ -82,7 +83,8 @@ namespace Library.DataStructures
 
         protected void BuildHeap()
         {
-            _heapSize = _items.Count-1;
+            _heapSize = _items.Count;
+            // starting with last non-leaf node
             for (int i = _items.Count/2-1; i >= 0; i--)
             {
                 Heapify(i);
@@ -92,8 +94,9 @@ namespace Library.DataStructures
         public void Sort()
         {
             BuildHeap();
-            for (int i = _items.Count-1; i >= 1; i--)
+            for (int i = _items.Count-1; i > 0; i--)
             {
+                // use Tuples to swap
                 (_items[0], _items[i]) = (_items[i], _items[0]);
                 _heapSize--;
                 Heapify(0);
@@ -144,7 +147,9 @@ namespace Library.DataStructures
 
         public override void Add(TValue item)
         {
-            throw new NotImplementedException();
+            _items.Add(item);
+            _heapSize++;
+            Heapify(_items.Count-1);
         }
 
         public override bool Contains(TValue item)
