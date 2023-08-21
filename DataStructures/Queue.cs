@@ -38,10 +38,10 @@ namespace Library.DataStructures
         {
             if (IsEmpty())
             {
-                throw new InvalidOperationException("Stack is empty");
+                throw new InvalidOperationException("Queue is empty");
             }
 
-            var item = _items[0];
+            var item = Peek();
             _items.RemoveFirst();
             return item;
         }
@@ -55,7 +55,7 @@ namespace Library.DataStructures
         {
             if (IsEmpty())
             {
-                throw new InvalidOperationException("Stack is empty");
+                throw new InvalidOperationException("Queue is empty");
             }
 
             return _items[0];
