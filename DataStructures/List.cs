@@ -181,11 +181,16 @@ namespace Library.DataStructures
             return false;
         }
 
-        public void CopyTo(TValue[] array, int arrayIndex)
-        {            
-            Array.Copy(_items, 0, array, arrayIndex, _size);
-        }        
+        public void CopyTo(TValue[] array, int arrayIndex = 0)
+        {
+            CopyOnlyItemsTo(array, arrayIndex);
+        }    
         
+        private void CopyOnlyItemsTo(TValue[] array, int arrayIndex = 0)
+        {
+            Array.Copy(_items, 0, array, arrayIndex, _size);
+        }       
+
         //
         //  Extended methods
         //
@@ -269,6 +274,13 @@ namespace Library.DataStructures
             sb.Append(']');
             sb.Append($" ({Count})");
             return sb.ToString();
+        }
+
+        public TValue[] ToArray()
+        {
+            var newArray = new TValue[Count];
+            CopyOnlyItemsTo(newArray);
+            return newArray;
         }
     }
 }
