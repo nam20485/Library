@@ -46,9 +46,10 @@ namespace Library.DataStructures
             BuildHeap();
         }
 
-        protected static int ParentIndex(int index) => (index - 1) / 2;
-        protected static int LeftChildIndex(int index) => index * 2;
-        protected static int RightChildIndex(int index) => (index * 2) + 1;
+        // shift right by 1 to divide by 2, shift left by 1 to multiply by 2
+        protected static int ParentIndex(int index) => (index - 1) >> 1;
+        protected static int LeftChildIndex(int index) => (index << 1) + 1;
+        protected static int RightChildIndex(int index) => (index << 1) + 2;
 
         protected void Heapify(int index)
         {
@@ -79,7 +80,7 @@ namespace Library.DataStructures
 
         protected void BuildHeap()
         {
-            _heapSize = _items.Count;
+            _heapSize = _items.Count-1;
             for (int i = _items.Count/2-1; i >= 0; i--)
             {
                 Heapify(i);
@@ -97,9 +98,36 @@ namespace Library.DataStructures
             }
         }
 
+        /// <summary>
+        /// Returns a new array that has been heap sorted.
+        /// </summary>
+        /// <param name="items"><see cref="IEnumerable&lt;TValue&gt;"/>&lt;<typeparamref name="TValue"/>&gt; of items to sort.</param>
+        /// <returns>A new <typeparamref name="TValue"/>[] that has been heap sorted.</returns>
+        public static TValue[] HeapSort(IEnumerable<TValue> items)
+        {
+            return SortedHeapArray(new Heap<TValue>(items));
+        }
+
+        /// <summary>
+        /// Returns a new array that has been heap sorted using the specified IComparer.
+        /// </summary>
+        /// <param name="items"><see cref="IEnumerable&lt;TValue&gt;"/>&lt;<typeparamref name="TValue"/>&gt; of items to sort.</param>        
+        /// <param name="comparer">IComparer&lt;<typeparamref name="TValue"/>&gt; to compare items when sorting.</param>
+        /// <returns>A new <typeparamref name="TValue"/>[] that has been heap sorted.</returns>
+        public static TValue[] HeapSort(IEnumerable<TValue> items, IComparer<TValue> comparer)
+        {
+            return SortedHeapArray(new Heap<TValue>(items, comparer));
+        }
+
+        private static TValue[] SortedHeapArray(Heap<TValue> heap)
+        {
+            heap.Sort();
+            return heap.ToArray();
+        }
+
         public IEnumerator<TValue> GetEnumerator()
         {
-            throw new NotImplementedException();
+            return _items.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
