@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library.DataStructures
 {
-    internal class PriorityQueue
+    public class PriorityQueue<TValue> : Heap<TValue>
     {
     }
 }
