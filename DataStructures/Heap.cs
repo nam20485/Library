@@ -146,5 +146,15 @@ namespace Library.DataStructures
         {
             throw new NotImplementedException();
         }
+
+        public override bool Contains(TValue item)
+        {
+            return _items.Contains(item);
+        }
+
+        public override void Clear()
+        {
+            _items.Clear();
+        }
     }
 }

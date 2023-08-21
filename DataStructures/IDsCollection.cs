@@ -5,6 +5,8 @@
         int Count { get; }
 
         void Add(TValue item);
+        bool Contains(TValue item);
+        void Clear();
 
         void AddRange(IEnumerable<TValue> collection);
         void CopyTo(TValue[] array, int arrayIndex = 0);

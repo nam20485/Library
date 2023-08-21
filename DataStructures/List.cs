@@ -159,7 +159,7 @@ namespace Library.DataStructures
             _items[index] = item;
             _size++;
         }
-        public void Clear()
+        public override void Clear()
         {
             var sizeWas = _size;
             _size = 0;
@@ -169,7 +169,7 @@ namespace Library.DataStructures
             }
         }
 
-        public bool Contains(TValue item)
+        public override bool Contains(TValue item)
         {
             return IndexOf(item) != -1;
         }

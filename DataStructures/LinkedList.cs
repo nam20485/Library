@@ -44,13 +44,13 @@ namespace Library.DataStructures
             AddAfter(Last, value);
         }       
 
-        public void Clear()
+        public override void Clear()
         {
             _head = null;
             _tail = null;
         }        
 
-        public bool Contains(TValue value)
+        public override bool Contains(TValue value)
         {
             return Find(value) != null;
         }                

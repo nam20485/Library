@@ -9,28 +9,27 @@ namespace Library.DataStructures
 {
     public abstract class DsCollectionBase<TValue> : IDsCollection<TValue>
     {
+        //
+        //  Abstract members all IDsCollection inheritors must implement
+        //
         public abstract int Count { get; }       
 
-        public abstract void Add(TValue item);         
+        public abstract void Add(TValue item);
+        public abstract bool Contains(TValue item);
+        public abstract void Clear();        
 
         public abstract IEnumerator<TValue> GetEnumerator();
-
         protected abstract string GetStringRepresentation();
-
         protected abstract void CopyOnlyItemsTo(TValue[] array, int arrayIndex = 0);
 
+        //
+        //  Shared implementations built from the abstract members
+        //
         public bool IsEmpty() => Count == 0;
-
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
         public override string ToString() => GetStringRepresentation();
-
         public List<TValue> ToList() => new (ToArray());
-
-        public /*virtual*/ void CopyTo(TValue[] array, int arrayIndex = 0)
-        {
-            CopyOnlyItemsTo(array, arrayIndex);
-        }
+        public void CopyTo(TValue[] array, int arrayIndex = 0) => CopyOnlyItemsTo(array, arrayIndex);
 
         public virtual void AddRange(IEnumerable<TValue> collection)
         {
@@ -45,6 +44,6 @@ namespace Library.DataStructures
             var newArray = new TValue[Count];
             CopyOnlyItemsTo(newArray);
             return newArray;
-        }
+        }       
     }
 }
