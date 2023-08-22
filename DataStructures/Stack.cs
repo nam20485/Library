@@ -18,6 +18,11 @@ namespace Library.DataStructures
         public Stack(IEnumerable<TValue> collection)
             : this()
         {
+            if (collection == null)
+            {
+                throw new ArgumentNullException(nameof(collection));
+            }
+
             AddRange(collection);
         }      
 
@@ -92,6 +97,11 @@ namespace Library.DataStructures
 
         public void AddRange(IEnumerable<TValue> collection)
         {
+            if (collection == null)
+            {
+                throw new ArgumentNullException(nameof(collection));
+            }
+
             foreach (var item in collection)
             {
                 Add(item);

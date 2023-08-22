@@ -18,11 +18,21 @@ namespace Library.DataStructures
         public Queue(IEnumerable<TValue> collection)
             : this()
         {
+            if (collection == null)
+            {
+                throw new ArgumentNullException(nameof(collection));
+            }
+
             AddRange(collection);
         }
 
         private void AddRange(IEnumerable<TValue> collection)
         {
+            if (collection == null)
+            {
+                throw new ArgumentNullException(nameof(collection));
+            }
+
             foreach (var item in collection)
             {
                 Add(item);

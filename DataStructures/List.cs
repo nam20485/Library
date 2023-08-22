@@ -36,6 +36,11 @@ namespace Library.DataStructures
         /// <param name="capacity">Capacity for new list.</param>
         public List(int capacity)
         {
+            if (capacity < 0)
+            {
+                throw new ArgumentOutOfRangeException($"{nameof(capacity)}: {capacity}");
+            }
+
             _size = 0;
             _items = EmptyArray;
             // Capacity will create the TItem[]
@@ -50,6 +55,11 @@ namespace Library.DataStructures
         public List(IEnumerable<TValue> collection)
             : this(collection.Count())
         {
+            if (collection == null)
+            {
+                throw new ArgumentNullException(nameof(collection));
+            }
+
             AddRange(collection);      
         }
 
@@ -195,6 +205,11 @@ namespace Library.DataStructures
         //
         public override void AddRange(IEnumerable<TValue> collection)
         {
+            if (collection == null)
+            {
+                throw new ArgumentNullException(nameof(collection));
+            }
+
             // copy items
             EnsureCapacity(collection.Count());           
             Array.Copy(collection.ToArray(), _items, collection.Count());

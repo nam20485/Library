@@ -26,6 +26,11 @@ namespace Library.DataStructures
         public LinkedList(IEnumerable<TValue> collection)
             : this()
         {
+            if (collection == null)
+            {
+                throw new ArgumentNullException(nameof(collection));
+            }
+
             AddRange(collection);
         }
 

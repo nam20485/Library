@@ -35,6 +35,11 @@ namespace Library.DataStructures
 
         public virtual void AddRange(IEnumerable<TValue> collection)
         {
+            if (collection == null)
+            {
+                throw new ArgumentNullException(nameof(collection));
+            }
+
             foreach (var item in collection)
             {
                 Add(item);

@@ -31,6 +31,11 @@ namespace Library.DataStructures
 
         public Heap(IEnumerable<TValue> collection)            
         {
+            if (collection == null)
+            {
+                throw new ArgumentNullException(nameof(collection));
+            }
+
             _items = new List<TValue>(collection);
             _heapSize = 0;
             _comparer = Comparer<TValue>.Default;
@@ -40,9 +45,15 @@ namespace Library.DataStructures
 
         public Heap(IEnumerable<TValue> collection, IComparer<TValue> comparaer)
         {
+            if (collection == null)
+            {
+                throw new ArgumentNullException(nameof(collection));
+            }
+
+            _comparer = comparaer ?? throw new ArgumentNullException(nameof(comparaer));
+
             _items = new List<TValue>(collection);
-            _heapSize = 0;
-            _comparer = comparaer;
+            _heapSize = 0;            
 
             BuildHeap();
         }
