@@ -269,5 +269,10 @@ namespace Library.DataStructures
             sb.Append($" ({Count})");
             return sb.ToString();
         }
+
+        public override IDsCollection<TValue> CopyOf()
+        {
+            return new List<TValue>(_items);
+        }
     }
 }

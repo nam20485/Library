@@ -161,5 +161,7 @@ namespace Library.DataStructures
         {
             _items.Clear();
         }
+
+        public override IDsCollection<TValue> CopyOf() => new Heap<TValue>(_items);
     }
 }

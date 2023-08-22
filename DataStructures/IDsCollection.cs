@@ -14,5 +14,7 @@
 
         TValue[] ToArray();
         List<TValue> ToList();
+
+        IDsCollection<TValue> CopyOf();
     }
 }

@@ -253,6 +253,8 @@ namespace Library.DataStructures
             }
         }
 
+        public override IDsCollection<TValue> CopyOf() => new LinkedList<TValue>(this);
+
         public class Node
         {
             public TValue? Value { get; }

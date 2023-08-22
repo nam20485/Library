@@ -19,6 +19,8 @@ namespace Library.DataStructures
         public abstract void Clear();        
 
         public abstract IEnumerator<TValue> GetEnumerator();
+        public abstract IDsCollection<TValue> CopyOf();
+
         protected abstract string GetStringRepresentation();
         protected abstract void CopyOnlyItemsTo(TValue[] array, int arrayIndex = 0);
 
