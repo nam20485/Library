@@ -52,20 +52,16 @@ namespace Library.DataStructures
         protected static int LeftChildIndex(int index) => (index << 1) + 1;
         protected static int RightChildIndex(int index) => LeftChildIndex(index) + 1;
 
-        protected void Heapify(int index)
+        protected void Heapify(int index)   // i.e. "MoveDown"
         {            
             var l = LeftChildIndex(index);
             var r = RightChildIndex(index);
 
             // find largest between _items at indices l, r, & index
-            int largest;
+            int largest = index;
             if (l < _heapSize && _comparer.Compare(_items[l], _items[index]) > 0)                
             {
                 largest = l;
-            }
-            else
-            {
-                largest = index;
             }
             if (r < _heapSize && _comparer.Compare(_items[r], _items[largest]) > 0)
             {
@@ -75,16 +71,18 @@ namespace Library.DataStructures
             if (largest != index)
             {
                 // use Tuples to swap
-                (_items[index], _items[largest]) = (_items[largest], _items[index]);
+                _items.SwapValues(index, largest);
                 Heapify(largest);
             }
         }
 
-        protected void BuildHeap()
+        protected void BuildHeap()  // i.e. "Heapify"
         {
             _heapSize = _items.Count;
             // starting with last non-leaf node
-            for (int i = _items.Count/2-1; i >= 0; i--)
+            //var start = _items.Count / 2 - 1;
+            var start = ParentIndex(_items.Count - 1);
+            for (int i = start; i >= 0; i--)
             {
                 Heapify(i);
             }
@@ -94,9 +92,8 @@ namespace Library.DataStructures
         {
             BuildHeap();
             for (int i = _items.Count-1; i > 0; i--)
-            {
-                // use Tuples to swap
-                (_items[0], _items[i]) = (_items[i], _items[0]);
+            {                
+                _items.SwapValues(0, i);
                 _heapSize--;
                 Heapify(0);
             }
@@ -148,7 +145,8 @@ namespace Library.DataStructures
         {
             _items.Add(item);
             _heapSize++;
-            Heapify(_items.Count-1);
+            Heapify(ParentIndex(_items.Count - 1));
+            //BuildHeap();
         }
 
         public override bool Contains(TValue item)
