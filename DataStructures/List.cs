@@ -220,6 +220,11 @@ namespace Library.DataStructures
             RemoveAt(0);
         }
 
+        public void SwapValues(int index1, int index2)
+        {
+            (_items[index1], _items[index2]) = (_items[index2], _items[index1]);
+        }        
+
         //
         //  IEnumerable<T> implementation
         //      
