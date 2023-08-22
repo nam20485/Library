@@ -39,7 +39,6 @@ namespace Library.DataStructures
         }
 
         public Heap(IEnumerable<TValue> collection, IComparer<TValue> comparaer)
-            : this(comparaer)
         {
             _items = new List<TValue>(collection);
             _heapSize = 0;

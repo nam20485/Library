@@ -24,6 +24,7 @@ namespace Library.DataStructures
         }
 
         public LinkedList(IEnumerable<TValue> collection)
+            : this()
         {
             AddRange(collection);
         }
