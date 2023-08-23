@@ -254,7 +254,7 @@ namespace Library.DataStructures
         //
         //  Private implementation
         //
-        private void EnsureCapacity(int minRequired)
+        internal void EnsureCapacity(int minRequired)
         {
             if (Capacity < minRequired)
             {
