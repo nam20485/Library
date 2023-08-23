@@ -250,21 +250,25 @@ namespace Library.DataStructures
 
         public override IEnumerator<TValue> GetEnumerator()
         {
+            // TODO: make GetEnumerator to respect _heapSize
             return _items.GetEnumerator();
         }
       
         protected override string GetStringRepresentation()
         {
+            // TODO: make GetStringRepresentation to respect _heapSize
             return _items.ToString();
         }
 
         protected override void CopyOnlyItemsTo(TValue[] array, int arrayIndex = 0)
         {
+            // TODO: make CopyOnlyItems to respect _heapSize
             _items.CopyTo(array, arrayIndex);
         }
 
         public override void Add(TValue item)
         {
+            // TODO: fix add
             _items.Add(item);
             _heapSize++;
             Heapify(ParentIndex(_items.Count - 1));
@@ -279,6 +283,7 @@ namespace Library.DataStructures
 
         public override bool Contains(TValue item)
         {
+            // TODO: make Contains respect _heapSize
             return _items.Contains(item);
         }
 
