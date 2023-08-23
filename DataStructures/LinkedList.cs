@@ -13,8 +13,8 @@ namespace Library.DataStructures
         private Node? _tail;
         private int _count;
 
-        public Node? First => _head;
-        public Node? Last => _tail;
+        //public Node? First => _head;
+        //public Node? Last => _tail;
 
         public LinkedList()
         {
@@ -47,7 +47,7 @@ namespace Library.DataStructures
         /// <param name="value">Item to add</param>        
         public override void Add(TValue? value)
         {
-            AddAfter(Last, value);
+            AddAfter(_tail, value);
         }       
 
         public override void Clear()
@@ -83,10 +83,10 @@ namespace Library.DataStructures
 
         public void AddFirst(TValue value)
         {
-            AddBefore(First, value);            
+            AddBefore(_head, value);            
         }
 
-        public void AddAfter(Node? node, TValue? value)
+        protected void AddAfter(Node? node, TValue? value)
         {
             var newNode = new Node(value, this)
             {
@@ -115,7 +115,7 @@ namespace Library.DataStructures
             _count++;
         }
 
-        public void AddBefore(Node? node, TValue value)
+        protected void AddBefore(Node? node, TValue value)
         {
             var newNode = new Node(value, this)
             {
@@ -146,18 +146,18 @@ namespace Library.DataStructures
 
         public void RemoveFirst()
         {
-            RemoveNode(First);
+            RemoveNode(_head);
         }
 
         public void RemoveLast()
         {
-            RemoveNode(Last);
+            RemoveNode(_tail);
         }
 
         //
         //  Private implementation
         //
-        public Node? Find(TValue value)
+        protected Node? Find(TValue value)
         {
             // optimization for when the value searched for is the tail in O(1) time
             if (_tail is not null)
@@ -180,7 +180,7 @@ namespace Library.DataStructures
             return current;
         }
 
-        private void RemoveNode(Node? node)
+        protected void RemoveNode(Node? node)
         {
             if (node == null)
             {
@@ -226,7 +226,7 @@ namespace Library.DataStructures
         {
             var sb = new StringBuilder();
 
-            var current = First;
+            var current = _head;
             while (current != null)
             {
                 sb.Append(current.ToString());
@@ -236,8 +236,8 @@ namespace Library.DataStructures
             sb.AppendLine();
 
             var head = 0;
-            current = First;
-            while (current != First && current != null)
+            current = _head;
+            while (current != _head && current != null)
             {
                 head++;
                 current = current.Next;
@@ -245,8 +245,8 @@ namespace Library.DataStructures
             //sb.Append($"{new string(' ', head)}^");        
 
             var tail = 0;
-            current = First;
-            while (current != Last && current != null)
+            current = _head;
+            while (current != _tail && current != null)
             {
                 tail++;
                 current = current.Next;
@@ -273,7 +273,7 @@ namespace Library.DataStructures
 
         public override IDsCollection<TValue> CopyOf() => new LinkedList<TValue>(this);
 
-        public class Node
+        protected class Node
         {
             public TValue? Value { get; }
             public Node? Next { get; internal set; }    // only Library can set Next and Previous, not user
