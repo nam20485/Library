@@ -83,7 +83,7 @@ namespace Library.DataStructures
 
         public void AddAfter(Node? node, TValue? value)
         {
-            var newNode = new Node(value)
+            var newNode = new Node(value, this)
             {
                 Previous = node
             };
@@ -112,7 +112,7 @@ namespace Library.DataStructures
 
         public void AddBefore(Node? node, TValue value)
         {
-            var newNode = new Node(value)
+            var newNode = new Node(value, this)
             {
                 Next = node               
             };
@@ -267,12 +267,14 @@ namespace Library.DataStructures
             public TValue? Value { get; }
             public Node? Next { get; internal set; }    // only Library can set Next and Previous, not user
             public Node? Previous { get; internal set; }
+            public LinkedList<TValue> List { get; internal set; }
 
-            public Node(TValue? value)
+            public Node(TValue? value, LinkedList<TValue> list)
             {
                 Value = value;
                 Next = null;
                 Previous = null;
+                List = list;
             }
 
             public override string ToString()
