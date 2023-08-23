@@ -79,8 +79,8 @@ namespace Library.DataStructures
 
         protected TValue LeftChildValue(int index)
         {
-            var lIndex = LeftChildIndex(index);
-            if (lIndex < _heapSize)
+            var l = LeftChildIndex(index);
+            if (l < _heapSize)
             {
                 return _items[LeftChildIndex(index)];
             }
@@ -92,8 +92,8 @@ namespace Library.DataStructures
 
         protected TValue RightChildValue(int index)
         {
-            var lIndex = RightChildIndex(index);
-            if (lIndex < _heapSize)
+            var r = RightChildIndex(index);
+            if (r < _heapSize)
             {
                 return _items[RightChildIndex(index)];
             }
@@ -165,10 +165,15 @@ namespace Library.DataStructures
                 throw new IndexOutOfRangeException(nameof(index));
             }
 
-            return index <= _items.Count / 2 - 1;
+            //return index <= _items.Count / 2 - 1;
+            if (LeftChildIndex(index) >= _heapSize && RightChildIndex(index) >= _heapSize)
+            {
+                return true;
+            }
+            return false;
         }
 
-        public bool IsHeap(int index)
+        public bool IsHeap(int index = 0)
         {
             if (IsLeaf(index))
             {
@@ -188,10 +193,10 @@ namespace Library.DataStructures
             return false;
         }
 
-        public bool IsHeap2()
+        public bool SatisfiesHeapProprty(int index)
         {
             //for (int i = 0; i < ParentIndex(_items.Count/2-1); i++)
-            for (int i = 0; i < _items.Count/2-1; i++)
+            for (int i = index; i <= _items.Count/2-1; i++)
             {
                 if (!HeapProperty(i))
                 {
