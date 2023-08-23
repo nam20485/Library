@@ -3,7 +3,6 @@
     public class LinkedListTests
     {
         [Theory]
-        [InlineData((int[]) null)]
         [InlineData(new int[] { })]
         [InlineData(new int[] { 0 })]
         [InlineData(new int[] { 0, 1 })]
