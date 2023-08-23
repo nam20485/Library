@@ -31,6 +31,8 @@ namespace Library.DataStructures
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         public override string ToString() => GetStringRepresentation();
         public List<TValue> ToList() => new (ToArray());
+        public Heap<TValue> ToHeap() => new (ToArray());
+        public Heap<TValue> ToHeap(IComparer<TValue> comparer) => new(ToArray(), comparer);
         public void CopyTo(TValue[] array, int arrayIndex = 0) => CopyOnlyItemsTo(array, arrayIndex);
 
         public virtual void AddRange(IEnumerable<TValue> collection)

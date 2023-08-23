@@ -14,7 +14,9 @@
 
         TValue[] ToArray();
         List<TValue> ToList();
+        Heap<TValue> ToHeap();
+        Heap<TValue> ToHeap(IComparer<TValue> comparer);
 
-        IDsCollection<TValue> CopyOf();
+        IDsCollection<TValue> CopyOf();       
     }
 }
