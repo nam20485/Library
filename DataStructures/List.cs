@@ -292,7 +292,7 @@ namespace Library.DataStructures
 
         public override IDsCollection<TValue> CopyOf()
         {
-            return new List<TValue>(_items);
+            return new List<TValue>(_items.Take(Count));
         }
     }
 }
