@@ -16,7 +16,8 @@ namespace Library.DataStructures
         protected readonly IComparer<TValue> _comparer;
 
         // TODO: change to => _heapSize
-        public override int Count => _items.Count;
+        //public override int Count => _items.Count;
+        public override int Count => _heapSize;
 
         public Heap()
             : this(Comparer<TValue>.Default)
@@ -281,6 +282,7 @@ namespace Library.DataStructures
         public override void Clear()
         {
             _items.Clear();
+            _heapSize = 0;
         }
 
         public override IDsCollection<TValue> CopyOf() => new Heap<TValue>(_items);
