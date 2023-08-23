@@ -62,9 +62,9 @@ namespace Library.DataStructures
             return Find(value) != null;
         }                
 
-        public bool Remove(TValue item)
+        public bool Remove(TValue value)
         {
-            var toRemove = Find(item);
+            var toRemove = Find(value);
             if (toRemove != null)
             {
                 RemoveNode(toRemove);
