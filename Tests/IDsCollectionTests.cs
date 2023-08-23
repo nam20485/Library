@@ -9,14 +9,14 @@ namespace Library.Tests
         [Theory]
         //[MemberData(nameof(Data))]
         [ClassData(typeof(IntIDsCollectionTestData))]
-        public void TestIdsCollection(IDsCollection<int> collection, int[] inputs)
+        public void TestIdsCollections(IDsCollection<int> collection, int[] inputs)
         {
             Console.WriteLine($"Original: {collection}");
 
             collection.Should().NotBeNull();
             collection.Should().BeEmpty();
 
-            // AddRange()           
+            // set up collection 
             collection.AddRange(inputs);
             Console.WriteLine($"Inputs Added: {collection}");
             if (inputs.Length > 0)
@@ -49,101 +49,141 @@ namespace Library.Tests
             var containsCopy = collection.CopyOf();
             foreach (var input in inputs)
             {
-                containsCopy.Should().Contain(input);                
+                containsCopy.Contains(input).Should().BeTrue();
             }
             containsCopy.Clear();
             containsCopy.IsEmpty().Should().BeTrue();
             //containsCopy.Should().BeEmpty();
-            //foreach (var input in inputs)
-            //{
-            //    containsCopy.Should().NotContain(input);
-            //}
-
-            //// Remove()
-            //var removeCopy = collection;
-            //var expectedSize = removeCopy.Count;
-            //while (!removeCopy.IsEmpty())
-            //{                
-            //    removeCopy.Remove();
-            //    expectedSize--;
-            //    removeCopy.Should().HaveCount(expectedSize);
-            //    removeCopy.Count.Should().Be(expectedSize);
-            //}
+            foreach (var input in inputs)
+            {
+                containsCopy.Contains(input).Should().BeFalse();
+            }         
 
             // Add()
             var addCopy = collection.CopyOf();
             addCopy.Clear();
             //addCopy.Should().BeEmpty();
-
-            var expectedSize = 0;
+            addCopy.IsEmpty().Should().BeTrue();
+            addCopy.Count.Should().Be(0);
             foreach (var input in inputs)
             {
+                addCopy.Contains(input).Should().BeFalse();
+            }
+            var expectedSize = 0;
+            foreach (var input in inputs)
+            {                
                 expectedSize++;
                 addCopy.Add(input);
-                addCopy.Should().HaveCount(expectedSize);
+                addCopy.Contains(input).Should().BeTrue();
+                //addCopy.Should().HaveCount(expectedSize);
                 addCopy.Count.Should().Be(expectedSize);
-                addCopy.Should().HaveCount(addCopy.Count);
+                //addCopy.Should().HaveCount(addCopy.Count);
+            }
+
+            // AddRange()
+            var addRangeCopy = collection.CopyOf();
+            addRangeCopy.Clear();
+            //addRangeCopy.Should().BeEmpty();
+            addRangeCopy.IsEmpty().Should().BeTrue();
+            addRangeCopy.Count.Should().Be(0);
+            foreach (var input in inputs)
+            {
+                addRangeCopy.Contains(input).Should().BeFalse();
+            }
+            addRangeCopy.AddRange(inputs);
+            addRangeCopy.Count.Should().Be(inputs.Length);
+            foreach (var input in inputs)
+            {
+                addRangeCopy.Contains(input).Should().BeTrue();                
             }
 
             // IsEmpty()
             var isEmptyCopy = collection.CopyOf();
             isEmptyCopy.Should().NotBeEmpty();
             isEmptyCopy.IsEmpty().Should().BeFalse();
+            isEmptyCopy.Count.Should().Be(inputs.Length);
             isEmptyCopy.Clear();
-            isEmptyCopy.Should().BeEmpty();
-            isEmptyCopy.IsEmpty().Should().BeTrue();           
+            //isEmptyCopy.Should().BeEmpty();
+            isEmptyCopy.IsEmpty().Should().BeTrue();
+            isEmptyCopy.Count.Should().Be(0);
 
             // Clear()
             var clearCopy = collection.CopyOf();
             clearCopy.Count.Should().Be(inputs.Length);
             clearCopy.Should().NotBeEmpty();
             clearCopy.Clear();
-            clearCopy.Should().BeEmpty();
+            //clearCopy.Should().BeEmpty();
+            clearCopy.IsEmpty().Should().BeTrue();
             clearCopy.Count.Should().Be(0);
             //clearCopy.Should().NotContain(inputs);
         }
 
-        public static IEnumerable<object[]> Data =>
-            new object[][]
-                {
-                    new object[] { new Heap<int>(), new int[] { 1, 2, 3 } },
-                };
-    }
+        //public static IEnumerable<object[]> Data =>
+        //    new object[][]
+        //        {
+        //            new object[] { new Heap<int>(), new int[] { 1, 2, 3 } },
+        //        };
 
-    public class IntIDsCollectionTestData : IDsCollectionTestDataBase<int>
+        [Fact]
+        public void CantConstructWithNullCollection()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                new DataStructures.List<int>((IEnumerable<int>)null);
+            });
+
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                new DataStructures.LinkedList<int>((IEnumerable<int>)null);
+            });
+
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                new DataStructures.Heap<int>((IEnumerable<int>)null);
+            });
+        }
+    }   
+    
+    public class IntIDsCollectionTestData : IDsCollectionTestData<int>
     {
-        protected override int[][] Inputs => new int[][]
+        protected override int[][] Inputs => new []
             {
                 new [] { 4, 1, 3, 2, 16, 9, 10, 14, 8, 7 },
                 //Array.Empty<int>(),
-                //new [] { 0 },
-                //new [] { 0, 1 },
-                //new [] { 0, 1, 2 },
-                //new [] { 0, 1, 2, 3 }
+                new [] { 0 },
+                new [] { 0, 1 },
+                new [] { 0, 1, 2 },
+                new [] { 0, 1, 2, 3 }
             };
     }
 
-    public abstract class IDsCollectionTestDataBase<TInput> : IEnumerable<object[]>
+    public abstract class IDsCollectionTestData<TInput> : IEnumerable<object[]>
     {
         protected abstract TInput[][] Inputs { get; }
 
-        protected IDsCollection<TInput>[] IDsCollections => 
-            new IDsCollection<TInput>[]
-                {                    
-                    new DataStructures.List<TInput>(),                    
-                    //new DataStructures.LinkedList<TInput>(),
-                    //new Heap<TInput>(),
-                };        
+        //protected IDsCollection<TInput>[] IDsCollections => 
+        //    new IDsCollection<TInput>[]
+        //        {                    
+        //            new DataStructures.List<TInput>(),                    
+        //            new DataStructures.LinkedList<TInput>(),
+        //            new Heap<TInput>(),
+        //        };        
 
         public IEnumerator<object[]> GetEnumerator()
         {
-            foreach (var iDsCollection in IDsCollections)
+            //foreach (var iDsCollection in IDsCollections)
+            //{
+            //    foreach (var inputs in Inputs)
+            //    {
+            //        yield return new object[] { iDsCollection, inputs };
+            //    }
+            //}
+            foreach (var inputs in Inputs)
             {
-                foreach (var inputs in Inputs)
-                {
-                    yield return new object[] { iDsCollection, inputs };
-                }
-            }           
+                yield return new object[] { new DataStructures.List<TInput>(), inputs };
+                yield return new object[] { new DataStructures.LinkedList<TInput>(), inputs };
+                yield return new object[] { new DataStructures.Heap<TInput>(), inputs };
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
