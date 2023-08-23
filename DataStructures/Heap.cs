@@ -105,26 +105,29 @@ namespace Library.DataStructures
         }
 
         protected void Heapify(int index)   // i.e. "MoveDown"
-        {            
-            var l = LeftChildIndex(index);
-            var r = RightChildIndex(index);
+        {
+            if (Count > 1)
+            {
+                var l = LeftChildIndex(index);
+                var r = RightChildIndex(index);
 
-            // find largest between _items at indices l, r, & index
-            int largest = index;
-            if (l < _heapSize && _comparer.Compare(_items[l], _items[index]) > 0)                
-            {
-                largest = l;
-            }
-            if (r < _heapSize && _comparer.Compare(_items[r], _items[largest]) > 0)
-            {
-                largest = r;
-            }
-            // swap largest and index and then call Heapify on largest
-            if (largest != index)
-            {
-                // use Tuples to swap
-                _items.SwapValues(index, largest);
-                Heapify(largest);
+                // find largest between _items at indices l, r, & index
+                int largest = index;
+                if (l < _heapSize && _comparer.Compare(_items[l], _items[index]) > 0)
+                {
+                    largest = l;
+                }
+                if (r < _heapSize && _comparer.Compare(_items[r], _items[largest]) > 0)
+                {
+                    largest = r;
+                }
+                // swap largest and index and then call Heapify on largest
+                if (largest != index)
+                {
+                    // use Tuples to swap
+                    _items.SwapValues(index, largest);
+                    Heapify(largest);
+                }
             }
         }
 
