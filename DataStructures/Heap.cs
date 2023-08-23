@@ -267,6 +267,12 @@ namespace Library.DataStructures
             //BuildHeap();
         }
 
+        public override void AddRange(IEnumerable<TValue> collection)
+        {            
+            _items.AddRange(collection);
+            BuildHeap();
+        }
+
         public override bool Contains(TValue item)
         {
             return _items.Contains(item);
