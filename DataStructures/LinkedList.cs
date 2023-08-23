@@ -154,6 +154,15 @@ namespace Library.DataStructures
         //
         public Node? Find(TValue value)
         {
+            // optimization for when the value searched for is the tail in O(1) time
+            if (_tail is not null)
+            {
+                if (Equals(_tail.Value, value))
+                {
+                    return _tail;
+                }
+            }
+
             var current = _head;
             while (current != null)
             {
