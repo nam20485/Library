@@ -54,6 +54,7 @@ namespace Library.DataStructures
         {
             _head = null;
             _tail = null;
+            _count = 0;
         }        
 
         public override bool Contains(TValue value)
