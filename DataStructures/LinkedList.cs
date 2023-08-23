@@ -65,7 +65,12 @@ namespace Library.DataStructures
         public bool Remove(TValue item)
         {
             var toRemove = Find(item);
-            return RemoveNode(toRemove);
+            if (toRemove != null)
+            {
+                RemoveNode(toRemove);
+                return true;
+            }
+            return false;
         }
 
         //
@@ -175,36 +180,33 @@ namespace Library.DataStructures
             return current;
         }
 
-        private bool RemoveNode(Node? node)
+        private void RemoveNode(Node? node)
         {
-            if (node != null)
+            if (node == null)
             {
-                var prevNode = node.Previous;
-                var nextNode = node.Next;
-                if (prevNode != null)
-                {
-                    prevNode.Next = nextNode;
-                }
-                else
-                {
-                    _head = nextNode;
-                }
-                if (nextNode != null)
-                {
-                    nextNode.Previous = prevNode;
-                }
-                else
-                {
-                    _tail = prevNode;
-                }
+                throw new ArgumentNullException(nameof(node));
+            }
 
-                _count--;
-                return true;
+            var prevNode = node.Previous;
+            var nextNode = node.Next;
+            if (prevNode != null)
+            {
+                prevNode.Next = nextNode;
             }
             else
             {
-                return false;
-            }                  
+                _head = nextNode;
+            }
+            if (nextNode != null)
+            {
+                nextNode.Previous = prevNode;
+            }
+            else
+            {
+                _tail = prevNode;
+            }
+
+            _count--;                           
         }
 
         //
