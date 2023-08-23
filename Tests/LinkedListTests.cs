@@ -22,30 +22,28 @@
         public void FindValueWithEmptyList()
         {
             var linkedList = new DataStructures.LinkedList<int>();
-            linkedList.Find(1).Should().BeNull();
+            linkedList.Contains(1).Should().BeFalse();
         }
 
         [Fact]
         public void FindNonPresentValueWithSingleNode()
         {
             var linkedList = new DataStructures.LinkedList<int>(new [] { 0 });
-            linkedList.Find(1).Should().BeNull();
+            linkedList.Contains(1).Should().BeFalse();
         }
 
         [Fact]
         public void FindNonPresentValueWithTwoNodes()
         {
             var linkedList = new DataStructures.LinkedList<int>(new[] { 0, 1 });
-            linkedList.Find(2).Should().BeNull();
+            linkedList.Contains(2).Should().BeFalse();
         }
 
         [Fact]
         public void FindPresentValueWithSingleNode()
         {
             var linkedList = new DataStructures.LinkedList<int>(new[] { 0 });
-            var found = linkedList.Find(0);
-            found.Should().NotBeNull();
-            found!.Value.Should().Be(0);
+            var found = linkedList.Contains(0).Should().BeTrue();
 
         }
 
@@ -53,18 +51,14 @@
         public void FindPresentValueWithTwoNodes_First()
         {
             var linkedList = new DataStructures.LinkedList<int>(new[] { 0, 1 });
-            var found = linkedList.Find(0);
-            found.Should().NotBeNull();
-            found!.Value.Should().Be(0);
+            var found = linkedList.Contains(0).Should().BeTrue();
         }
 
         [Fact]
         public void FindPresentValueWithTwoNodes_Second()
         {
             var linkedList = new DataStructures.LinkedList<int>(new[] { 0, 1 });
-            var found = linkedList.Find(1);
-            found.Should().NotBeNull();
-            found!.Value.Should().Be(1);
+            var found = linkedList.Contains(1).Should().BeTrue();            
         }
     }
 }
