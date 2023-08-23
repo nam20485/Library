@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,6 +15,7 @@ namespace Library.DataStructures
 
         protected readonly IComparer<TValue> _comparer;
 
+        // TODO: change to => _heapSize
         public override int Count => _items.Count;
 
         public Heap()
@@ -63,6 +65,44 @@ namespace Library.DataStructures
         protected static int LeftChildIndex(int index) => (index << 1) + 1;
         protected static int RightChildIndex(int index) => LeftChildIndex(index) + 1;
 
+        protected TValue ParentValue(int index)
+        {
+            if (index > 0)
+            {
+                return _items[ParentIndex(index)];
+            }
+            else
+            {
+                throw new IndexOutOfRangeException(nameof(index));
+            }
+        }
+
+        protected TValue LeftChildValue(int index)
+        {
+            var lIndex = LeftChildIndex(index);
+            if (lIndex < _heapSize)
+            {
+                return _items[LeftChildIndex(index)];
+            }
+            else
+            {
+                throw new IndexOutOfRangeException(nameof(index));
+            }
+        }
+
+        protected TValue RightChildValue(int index)
+        {
+            var lIndex = RightChildIndex(index);
+            if (lIndex < _heapSize)
+            {
+                return _items[RightChildIndex(index)];
+            }
+            else
+            {
+                throw new IndexOutOfRangeException(nameof(index));
+            }
+        }
+
         protected void Heapify(int index)   // i.e. "MoveDown"
         {            
             var l = LeftChildIndex(index);
@@ -97,6 +137,68 @@ namespace Library.DataStructures
             {
                 Heapify(i);
             }
+        }
+
+        protected bool HeapProperty(int index)
+        {
+            return _comparer.Compare(_items[ParentIndex(index)], _items[index]) >= 0;
+        }
+
+        public bool IsLeaf(int index)
+        {
+            //if (index > _items.Count / 2 - 1)
+            //{
+            //    return true;
+            //}
+            if (LeftChildIndex(index) >= _heapSize &&
+                RightChildIndex(index) >= _heapSize)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool IsParent(int index)
+        {
+            if (index < 0)
+            {
+                throw new IndexOutOfRangeException(nameof(index));
+            }
+
+            return index <= _items.Count / 2 - 1;
+        }
+
+        public bool IsHeap(int index)
+        {
+            if (IsLeaf(index))
+            {
+                return true;
+            }
+
+            var l = LeftChildIndex(index);
+            var r = RightChildIndex(index);
+            if (_comparer.Compare(_items[index], _items[l]) >= 0)
+            {
+                if (_comparer.Compare(_items[index], _items[r]) >= 0)
+                {
+                    return IsHeap(l) && IsHeap(r);
+                }
+            }
+
+            return false;
+        }
+
+        public bool IsHeap2()
+        {
+            //for (int i = 0; i < ParentIndex(_items.Count/2-1); i++)
+            for (int i = 0; i < _items.Count/2-1; i++)
+            {
+                if (!HeapProperty(i))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         public void Sort()
