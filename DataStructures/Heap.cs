@@ -224,7 +224,7 @@ namespace Library.DataStructures
             return true;
         }
 
-        public void Sort()
+        public TValue[] Sort()
         {
             BuildHeap();
             for (int i = _items.Count-1; i > 0; i--)
@@ -233,6 +233,7 @@ namespace Library.DataStructures
                 _heapSize--;
                 Heapify(0);
             }
+            return _items.ToArray();
         }
 
         /// <summary>
@@ -242,7 +243,7 @@ namespace Library.DataStructures
         /// <returns>A new <typeparamref name="TValue"/>[] that has been heap sorted.</returns>
         public static TValue[] HeapSort(IEnumerable<TValue> items)
         {
-            return SortedHeapArray(new Heap<TValue>(items));
+            return new Heap<TValue>(items).Sort();
         }
 
         /// <summary>
@@ -253,31 +254,26 @@ namespace Library.DataStructures
         /// <returns>A new <typeparamref name="TValue"/>[] that has been heap sorted.</returns>
         public static TValue[] HeapSort(IEnumerable<TValue> items, IComparer<TValue> comparer)
         {
-            return SortedHeapArray(new Heap<TValue>(items, comparer));
-        }
-
-        private static TValue[] SortedHeapArray(Heap<TValue> heap)
-        {
-            heap.Sort();
-            return heap.ToArray();
-        }
+            return new Heap<TValue>(items, comparer).Sort();
+        }       
 
         public override IEnumerator<TValue> GetEnumerator()
         {
-            // TODO: make GetEnumerator to respect _heapSize
-            return _items.GetEnumerator();
+            for (int i = 0; i < Count; i++)
+            {
+                yield return _items[i];
+            }
         }
       
         protected override string GetStringRepresentation()
         {
-            // TODO: make GetStringRepresentation to respect _heapSize
-            return _items.ToString();
+            return new List<TValue>(_items.Take(Count)).ToString();
+            //return _items.ToString();
         }
 
         protected override void CopyOnlyItemsTo(TValue[] array, int arrayIndex = 0)
         {
-            Array.Copy(_items.ToArray(), 0, array, arrayIndex, Count);            
-            //new List<TValue>(_items.Take(Count)).CopyTo(array, arrayIndex);
+            Array.Copy(_items.ToArray(), 0, array, arrayIndex, Count);                        
         }
 
         public override void Add(TValue item)
@@ -297,8 +293,7 @@ namespace Library.DataStructures
 
         public override bool Contains(TValue item)
         {
-            // TODO: make Contains respect _heapSize
-            return _items.Contains(item);
+            return _items.Take(Count).Contains(item);
         }
 
         public override void Clear()
