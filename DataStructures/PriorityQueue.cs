@@ -11,7 +11,7 @@ namespace Library.DataStructures
 
         public PriorityQueue(IComparer<Node> comparer)
             : base(comparer)
-        {           
+        {
         }
 
         public PriorityQueue(IEnumerable<Node> collection)
@@ -30,18 +30,37 @@ namespace Library.DataStructures
         }
 
         public void Insert(Node newNode)
-        {            
+        {
+            // make room for new node
+            //_items.EnsureCapacity(_items.Count + 1);
+
             _heapSize++;
             var index = _heapSize - 1;
             while (index > 0 && _comparer.Compare(_items[ParentIndex(index)], newNode) < 0)
             {
-                _items[index] = _items[ParentIndex(index)];
-                index = ParentIndex(index);
+                var parentIndex = ParentIndex(index);
+                if (index < _items.Count)
+                {
+                    _items[index] = _items[parentIndex];
+                }
+                else
+                {
+                    _items.Insert(index, _items[parentIndex]);
+                }
+                
+                index = parentIndex;
             }
-            _items[index] = newNode;
+            if (index < _items.Count)
+            {
+                _items[index] = newNode;            
+            }
+            else
+            {
+                _items.Insert(index, newNode);
+            }
         }
 
-        public TValue Peek()
+        public Node Peek()
         {
             if (_heapSize < 1)
             {
@@ -49,10 +68,10 @@ namespace Library.DataStructures
                 throw new InvalidPriorityQueueException("Heap underflow");
             }
 
-            return _items[0].Value;
+            return _items[0];
         }
 
-        public TValue Remove()
+        public Node Remove()
         {
             var max = Peek();
             _items[0] = _items[_heapSize - 1];
@@ -61,7 +80,15 @@ namespace Library.DataStructures
             return max;
         }
 
-        public class Node
+        public override IEnumerator<PriorityQueue<TValue, TKey>.Node> GetEnumerator()
+        {
+            while (Count > 0)
+            {
+                yield return Remove();
+            }
+        }
+
+        public class Node : IComparable<Node>
         {
             public TValue Value { get; }
             public TKey Key { get; }
@@ -70,6 +97,22 @@ namespace Library.DataStructures
             {
                 Value = value;
                 Key = key;
+            }
+
+            public int CompareTo(PriorityQueue<TValue, TKey>.Node? other)
+            {
+                if (other is null)
+                {
+                    // TODO: what to return if other is null?
+                    // throw exception?
+                }
+
+                return Comparer<TKey>.Default.Compare(Key, other.Key);
+            }
+
+            public override string ToString()
+            {
+                return $"{{Value: {Value}, Key: {Key}}}";
             }
         }
     }
