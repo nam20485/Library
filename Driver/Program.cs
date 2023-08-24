@@ -7,11 +7,11 @@ namespace Library.Driver
         private static readonly int[][] testCases = new[]
         {
             new [] { 4, 1, 3, 2, 16, 9, 10, 14, 8, 7 },
-            Array.Empty<int>(),
-            new [] { 0 },
-            new [] { 0, 1 },
-            new [] { 0, 1, 2 },
-            new [] { 0, 1, 2, 3 }
+            //Array.Empty<int>(),
+            //new [] { 0 },
+            //new [] { 0, 1 },
+            //new [] { 0, 1, 2 },
+            //new [] { 0, 1, 2, 3 }
         };
 
         static void Main(/*string[] args*/)
@@ -19,8 +19,10 @@ namespace Library.Driver
             foreach (var testCase in testCases)
             {
                 //TestLinkedList(testCase);
-                TestHeap(testCase);
+                //TestHeap(testCase);
                 //TestList(testCase);
+                //TestPriorityQueue(testCase);
+                TestMinPriorityQueue(testCase);
             }         
         }
 
@@ -56,6 +58,51 @@ namespace Library.Driver
             Console.WriteLine(list);
 
             //list.Add
-        }        
+        }     
+        
+        private static void TestPriorityQueue(int[] inputs)
+        {
+            var pq = new DataStructures.PriorityQueue<int, int>();
+            foreach (var input in inputs)
+            {
+                pq.Insert(input, input);
+            }
+
+            Console.WriteLine($"PQ: {pq}");
+
+            var list = new DataStructures.List<int>();
+            
+            
+            foreach (var min in pq)
+            {                
+                list.Add(min.Value);
+            }
+
+            Console.WriteLine($"List: {list}");
+        }
+
+        private static void TestMinPriorityQueue(int[] inputs)
+        {
+            var pq = new DataStructures.MinPriorityQueue<int, int>();
+            foreach (var input in inputs)
+            {
+                pq.Insert(input, input);
+            }
+
+            Console.WriteLine($"MinPQ: {pq}");
+
+            var list = new DataStructures.List<int>();
+
+            foreach (var min in pq)
+            {
+                list.Add(min.Value);
+            }
+
+            Console.WriteLine($"List: {list}");
+
+            Console.WriteLine($"MinPQ.ToList(): {pq.ToList()}");
+
+            Console.WriteLine($"MinPQ.ToArray(): {pq.ToArray()}");
+        }
     }
 }
