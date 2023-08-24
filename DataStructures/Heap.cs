@@ -276,8 +276,8 @@ namespace Library.DataStructures
 
         protected override void CopyOnlyItemsTo(TValue[] array, int arrayIndex = 0)
         {
-            // TODO: make CopyOnlyItems to respect _heapSize
-            new List<TValue>(_items.Take(Count)).CopyTo(array, arrayIndex);
+            Array.Copy(_items.ToArray(), 0, array, arrayIndex, Count);            
+            //new List<TValue>(_items.Take(Count)).CopyTo(array, arrayIndex);
         }
 
         public override void Add(TValue item)
