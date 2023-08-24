@@ -98,18 +98,15 @@ namespace Library.DataStructures
         {
             get
             {
-                if (index < _size)
-                {
-                    return _items[index];
-                }
-                else
+                if (index < 0 || index >= _size)
                 {
                     throw new ArgumentOutOfRangeException($"{Caller.MemberNameLocation()} - {nameof(index)}: {index} (size = {_size})");
                 }
+                return _items[index];
             }
             set
             {
-                if (index >= _size)
+                if (index < 0 || index >= _size)
                 {
                     throw new ArgumentOutOfRangeException($"{Caller.MemberNameLocation()} - {nameof(index)}: {index} (size = {_size})");
                 }
