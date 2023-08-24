@@ -179,28 +179,42 @@ namespace Library.DataStructures
 
         public bool IsHeap(int index = 0)
         {
-            if (IsLeaf(index))
+            if (!IsLeaf(index))
             {
-                return true;
-            }
-
-            var l = LeftChildIndex(index);
-            var r = RightChildIndex(index);
-            if (_comparer.Compare(_items[index], _items[l]) >= 0)
-            {
-                if (_comparer.Compare(_items[index], _items[r]) >= 0)
+                var l = LeftChildIndex(index);
+                if (l < _heapSize)
                 {
-                    return IsHeap(l) && IsHeap(r);
+                    if (_comparer.Compare(_items[l], _items[index]) > 0)
+                    {
+                        return false;
+                    }
+                    else if (!IsHeap(l))
+                    {
+                        return false;
+                    }
+                }
+
+                var r = RightChildIndex(index);
+                if (r < _heapSize)
+                {
+                    if (_comparer.Compare(_items[r], _items[index]) > 0)
+                    {
+                        return false;
+                    }
+                    else if (!IsHeap(r))
+                    {
+                        return false;
+                    }
                 }
             }
 
-            return false;
+            return true;
         }
 
-        public bool SatisfiesHeapProprty(int index)
+        public bool SatisfiesHeapProperty(int index = 1)
         {
             //for (int i = 0; i < ParentIndex(_items.Count/2-1); i++)
-            for (int i = index; i <= _items.Count/2-1; i++)
+            for (int i = index; i < _heapSize; i++)
             {
                 if (!HeapProperty(i))
                 {
