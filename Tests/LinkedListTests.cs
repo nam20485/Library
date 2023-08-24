@@ -43,7 +43,7 @@
         public void FindPresentValueWithSingleNode()
         {
             var linkedList = new DataStructures.LinkedList<int>(new[] { 0 });
-            var found = linkedList.Contains(0).Should().BeTrue();
+            linkedList.Contains(0).Should().BeTrue();
 
         }
 
@@ -51,14 +51,14 @@
         public void FindPresentValueWithTwoNodes_First()
         {
             var linkedList = new DataStructures.LinkedList<int>(new[] { 0, 1 });
-            var found = linkedList.Contains(0).Should().BeTrue();
+            linkedList.Contains(0).Should().BeTrue();
         }
 
         [Fact]
         public void FindPresentValueWithTwoNodes_Second()
         {
             var linkedList = new DataStructures.LinkedList<int>(new[] { 0, 1 });
-            var found = linkedList.Contains(1).Should().BeTrue();            
+            linkedList.Contains(1).Should().BeTrue();            
         }
     }
 }
