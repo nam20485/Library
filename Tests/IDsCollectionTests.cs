@@ -5,10 +5,11 @@ using Library.DataStructures;
 namespace Library.Tests
 {
     public class IDsCollectionTests
-    {       
+    {
         [Theory]
         //[MemberData(nameof(Data))]
-        [ClassData(typeof(IntIDsCollectionTestData))]
+        //[ClassData(typeof(IntIDsCollectionTestData))]
+        [ClassData(typeof(RandomIntIDsCollectionTestData))]
         public void TestIdsCollections(IDsCollection<int> collection, int[] inputs)
         {
             Console.WriteLine($"Original: {collection}");
@@ -57,7 +58,7 @@ namespace Library.Tests
             foreach (var input in inputs)
             {
                 containsCopy.Contains(input).Should().BeFalse();
-            }         
+            }
 
             // Add()
             var addCopy = collection.CopyOf();
@@ -71,7 +72,7 @@ namespace Library.Tests
             }
             var expectedSize = 0;
             foreach (var input in inputs)
-            {                
+            {
                 expectedSize++;
                 addCopy.Add(input);
                 addCopy.Contains(input).Should().BeTrue();
@@ -94,7 +95,7 @@ namespace Library.Tests
             addRangeCopy.Count.Should().Be(inputs.Length);
             foreach (var input in inputs)
             {
-                addRangeCopy.Contains(input).Should().BeTrue();                
+                addRangeCopy.Contains(input).Should().BeTrue();
             }
 
             // IsEmpty()
@@ -142,50 +143,5 @@ namespace Library.Tests
                 new DataStructures.Heap<int>((IEnumerable<int>)null);
             });
         }
-    }   
-    
-    public class IntIDsCollectionTestData : IDsCollectionTestData<int>
-    {
-        protected override int[][] Inputs => new []
-            {
-                new [] { 4, 1, 3, 2, 16, 9, 10, 14, 8, 7 },
-                //Array.Empty<int>(),
-                new [] { 0 },
-                new [] { 0, 1 },
-                new [] { 0, 1, 2 },
-                new [] { 0, 1, 2, 3 }
-            };
-    }
-
-    public abstract class IDsCollectionTestData<TInput> : IEnumerable<object[]>
-    {
-        protected abstract TInput[][] Inputs { get; }
-
-        //protected IDsCollection<TInput>[] IDsCollections => 
-        //    new IDsCollection<TInput>[]
-        //        {                    
-        //            new DataStructures.List<TInput>(),                    
-        //            new DataStructures.LinkedList<TInput>(),
-        //            new Heap<TInput>(),
-        //        };        
-
-        public IEnumerator<object[]> GetEnumerator()
-        {
-            //foreach (var iDsCollection in IDsCollections)
-            //{
-            //    foreach (var inputs in Inputs)
-            //    {
-            //        yield return new object[] { iDsCollection, inputs };
-            //    }
-            //}
-            foreach (var inputs in Inputs)
-            {
-                yield return new object[] { new DataStructures.List<TInput>(), inputs };
-                yield return new object[] { new DataStructures.LinkedList<TInput>(), inputs };
-                yield return new object[] { new DataStructures.Heap<TInput>(), inputs };
-            }
-        }
-
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

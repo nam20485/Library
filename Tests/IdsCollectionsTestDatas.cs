@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,28 @@ namespace Library.Tests
             };
     }
 
+    public class RandomIntArraysTestData : IEnumerable<object[]>
+    {
+        private const int TestDatasCount = 100;
+        private const int TestDataLength = 100;
+        private const int MaxValue = 100;
+
+        private readonly RandomIntSequence _sequence = new(MaxValue);
+
+        public IEnumerator<object[]> GetEnumerator()
+        {
+            for (int i = 0; i < TestDatasCount; i++)
+            {
+                yield return new object[] { _sequence.Array(TestDataLength) };
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+    }
+
     public class RandomIntIDsCollectionTestData : IDsCollectionsTestData<int>
     {
         private const int TestDatasCount = 100;
@@ -35,7 +58,7 @@ namespace Library.Tests
                 
                 for (int i = 0; i < TestDatasCount; i++)
                 {
-                    testDatas[i] = _sequence.Make(TestDataLength);
+                    testDatas[i] = _sequence.Array(TestDataLength);
                 }
 
                 return testDatas;
