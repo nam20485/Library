@@ -235,7 +235,60 @@ namespace Library.DataStructures
         public void SwapValues(int index1, int index2)
         {
             (_items[index1], _items[index2]) = (_items[index2], _items[index1]);
-        }        
+        }   
+
+        public enum SortType
+        {
+            MonotonicallyIncreasing,
+            MonotonicallyDecreasing,
+            StrictlyIncreasing,
+            StrictlyDecreasing,
+        }
+        
+        public bool IsSorted(SortType sortType)
+        {
+            for (int i = 0; i < _items.Length-1; i++)
+            {
+                switch (sortType)
+                {
+                    case SortType.MonotonicallyIncreasing:
+                        if (Compare(i, i + 1) > 0)
+                        {
+                            return false;
+                        }
+                        break;
+                    case SortType.StrictlyIncreasing:
+                        if (Compare(i, i + 1) >= 0)
+                        {
+                            return false;
+                        }
+                        break;
+                    case SortType.MonotonicallyDecreasing:
+                        if (Compare(i, i + 1) < 0)
+                        {
+                            return false;
+                        }
+                        break;
+                    case SortType.StrictlyDecreasing:
+                        if (Compare(i, i + 1) <= 0)
+                        {
+                            return false;
+                        }
+                        break;
+                }                
+            }
+            return true;
+        }
+
+        protected int Compare(int index1, int index2)        
+        {
+            return List<TValue>.Compare(_items[index1], _items[index2]);
+        }
+
+        protected static int Compare(TValue a, TValue b)
+        {
+            return Comparer<TValue>.Default.Compare(a, b);
+        }
 
         //
         //  IEnumerable<T> implementation
