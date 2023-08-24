@@ -19,14 +19,14 @@ namespace Library.Tests
             _random = new Random();
         }
 
-        public int[] Make(int length)
+        public int[] Array(int length)
         {
            return this.Take(length).ToArray();
         }
 
-        public static int[] Make(int maxValue, int length)
+        public static int[] Array(int maxValue, int length)
         {
-            return new RandomIntSequence(maxValue).Make(length);
+            return new RandomIntSequence(maxValue).Array(length);
         }
 
         public IEnumerator<int> GetEnumerator()
