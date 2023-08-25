@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-using Library.DataStructures;
+﻿using Library.DataStructures;
 using Library.Utils;
 
 namespace Library.Tests
@@ -157,31 +155,86 @@ namespace Library.Tests
             var iterationCount = 100;
             while (iterationCount-- > 0)
             {
-                //try
+                switch (Operations.NextType())
                 {
-                    switch (Operations.NextType())
-                    {
-                        case Operations.Type.Clear:
+                    case Operations.Type.Clear:
+                        {
                             collection.Clear();
                             collection.IsEmpty().Should().BeTrue();
                             collection.Count.Should().Be(0);
-                            //collection.Should().BeEmpty();
-                            //collection.Should().HaveCount(0);
                             break;
-                        case Operations.Type.Add: // Add()
+                        }
+                    case Operations.Type.Add:
+                        {
                             var prevCount = collection.Count;
-                            var input = inputs[random.Next(inputs.Length)];
+                            var input = RandomInput();
                             collection.Add(input);
                             collection.Count.Should().Be(prevCount + 1);
-                            collection.Should().Contain(input);
+                            collection.Contains(input).Should().BeTrue();
                             break;
-                            // ...                       
-                    }
-                }
-                //catch (Exception ex)
-                //{
-                //    Assert.Fail($"iteration: {iterationCount}, collection: ({collection.GetType()}) {collection}{Environment.NewLine}{ex}");
-                //}
+                        }
+                    case Operations.Type.Contains:
+                        {
+                            foreach (var item in collection)
+                            {
+                                collection.Contains(item).Should().BeTrue();
+                            }
+                            break;
+                        }
+                    case Operations.Type.IsEmpty:
+                        {
+                            collection.IsEmpty().Should().Be(collection.Count == 0);
+                            collection.Add(RandomInput());
+                            collection.IsEmpty().Should().BeFalse();
+                            break;
+                        }
+                    case Operations.Type.AddRange:
+                        {
+                            collection.AddRange(inputs);
+                            foreach (var input in inputs)
+                            {
+                                collection.Contains(input).Should().BeTrue();
+                            }
+                            break;
+                        }
+                    case Operations.Type.CopyOf:
+                        {
+                            var copy = collection.CopyOf();
+                            copy.Count.Should().Be(collection.Count);
+                            foreach (var item in collection)
+                            {
+                                copy.Contains(item).Should().BeTrue();
+                            }                           
+                            break;
+                        }
+                    case Operations.Type.CopyTo:
+                        {
+                            var array = new int[collection.Count];
+                            collection.CopyTo(array);                            
+                            array.Length.Should().Be(collection.Count);
+                            foreach (var n in array)
+                            {
+                                collection.Contains(n).Should().BeTrue();
+                            }
+                            break;
+                        }
+                    case Operations.Type.ToArray:
+                        {
+                            var array = collection.ToArray<int>();
+                            break;
+                        }
+
+                }                             
+            }         
+            //ToArray,
+            //ToList,
+            //ToHeap,
+            //ToQueue,
+            //ToStack
+
+            int RandomInput()
+            {
+                return random.Next(inputs.Length);
             }
         }
     }
