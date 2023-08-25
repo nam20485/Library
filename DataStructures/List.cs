@@ -296,10 +296,15 @@ namespace Library.DataStructures
         //      
         public override IEnumerator<TValue> GetEnumerator()
         {
-            foreach (var item in _items)
+            for (int i = 0; i < Count; i++)
             {
-                yield return item;
+                yield return _items[i];
             }
+
+            //foreach (var item in _items.Take(Count))
+            //{
+            //    yield return item;
+            //}
         }
 
         //
