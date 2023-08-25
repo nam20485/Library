@@ -16,7 +16,9 @@
         List<TValue> ToList();
         Heap<TValue> ToHeap();
         Heap<TValue> ToHeap(IComparer<TValue> comparer);
+        Queue<TValue> ToQueue();
+        Stack<TValue> ToStack();
 
-        IDsCollection<TValue> CopyOf();       
+        IDsCollection<TValue> CopyOf();  
     }
 }

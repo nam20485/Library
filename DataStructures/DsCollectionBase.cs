@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections;
 
 namespace Library.DataStructures
 {
@@ -32,7 +27,10 @@ namespace Library.DataStructures
         public override string ToString() => GetStringRepresentation();
         public List<TValue> ToList() => new (ToArray());
         public Heap<TValue> ToHeap() => new (ToArray());
-        public Heap<TValue> ToHeap(IComparer<TValue> comparer) => new(ToArray(), comparer);
+        public Heap<TValue> ToHeap(IComparer<TValue> comparer) => new (ToArray(), comparer);
+        public Stack<TValue> ToStack() => new (ToArray());
+        public Queue<TValue> ToQueue() => new (ToArray());
+        
         public void CopyTo(TValue[] array, int arrayIndex = 0) => CopyOnlyItemsTo(array, arrayIndex);
 
         public virtual void AddRange(IEnumerable<TValue> collection)
