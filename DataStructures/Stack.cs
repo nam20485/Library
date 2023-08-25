@@ -1,12 +1,12 @@
-﻿using System.Collections;
+﻿//using System.Collections;
 
 namespace Library.DataStructures
 {
-    public class Stack<TValue> : IEnumerable<TValue>
+    public class Stack<TValue> : DsCollectionBase<TValue>
     {
         private readonly List<TValue> _items;        
 
-        public int Count => _items.Count;
+        public override int Count => _items.Count;
 
         public Stack()
         {
@@ -23,12 +23,7 @@ namespace Library.DataStructures
 
             AddRange(collection);
         }      
-
-        public bool IsEmpty()
-        {
-            return Count == 0;
-        }
-
+        
         public void Push(TValue value)
         {
             Add(value);
@@ -56,35 +51,22 @@ namespace Library.DataStructures
             return _items[Count - 1];            
         }
 
-        public void Add(TValue item)
+        public override void Add(TValue item)
         {
             _items.Add(item);
         }
 
-        public void Clear()
+        public override void Clear()
         {
             _items.Clear();
         }
 
-        public bool Contains(TValue item)
+        public override bool Contains(TValue item)
         {
             return _items.Contains(item);
-        }
-
-        public void CopyTo(TValue[] array, int arrayIndex)
-        {
-            foreach (var item in _items)
-            {
-                array[arrayIndex++] = item;
-            }
-        }      
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
-        public IEnumerator<TValue> GetEnumerator()
+        }     
+    
+        public override IEnumerator<TValue> GetEnumerator()
         {
             // TODO: should we make this a destructive iterator?
             var index = Count - 1;
@@ -92,20 +74,24 @@ namespace Library.DataStructures
             {
                 yield return _items[index];
             }
-        }
-
-        public void AddRange(IEnumerable<TValue> collection)
+        }               
+      
+        public override IDsCollection<TValue> CopyOf()
         {
-            if (collection == null)
-            {
-                throw new ArgumentNullException(nameof(collection));
-            }
-
-            foreach (var item in collection)
-            {
-                Add(item);
-            }
+            return new Stack<TValue>(_items);
         }
 
+        protected override string GetStringRepresentation()
+        {
+            return _items.ToString();
+        }
+
+        protected override void CopyOnlyItemsTo(TValue[] array, int arrayIndex = 0)
+        {
+            foreach (var item in _items)
+            {
+                array[arrayIndex++] = item;
+            }
+        }
     }
 }
