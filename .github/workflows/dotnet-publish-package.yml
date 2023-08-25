@@ -16,7 +16,7 @@ jobs:
 
     runs-on: ubuntu-22.04
     permissions:
-      issues: write
+      packages: write
     steps:
     - uses: actions/checkout@v3
 
