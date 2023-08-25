@@ -12,10 +12,10 @@
         {
             var linkedList = new DataStructures.LinkedList<int>(items);
             var str = linkedList.ToString();
-            Console.WriteLine(str);
+            //Console.WriteLine(str);
             str.Should().NotBeNull();
             str = str!.Trim();
-            str.Should().NotBeEmpty();
+            str.Should().NotBeNullOrWhiteSpace();
         }
 
         [Fact]

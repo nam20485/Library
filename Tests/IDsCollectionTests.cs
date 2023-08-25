@@ -11,14 +11,14 @@ namespace Library.Tests
         [ClassData(typeof(RandomIntIDsCollectionTestData))]
         public void Test_IdsCollectionOperations(IDsCollection<int> collection, int[] inputs)
         {
-            Console.WriteLine($"Original: {collection}");
+            //Console.WriteLine($"Original: {collection}");
 
             collection.Should().NotBeNull();
             collection.Should().BeEmpty();
 
             // set up collection 
             collection.AddRange(inputs);
-            Console.WriteLine($"Inputs Added: {collection}");
+            //Console.WriteLine($"Inputs Added: {collection}");
             if (inputs.Length > 0)
             {
                 collection.Should().NotBeEmpty();
