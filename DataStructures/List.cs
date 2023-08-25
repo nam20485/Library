@@ -181,6 +181,12 @@ namespace Library.DataStructures
             return IndexOf(item) != -1;
         }
 
+        public bool Contains(TValue value, int upperBound)
+        {
+            var index = IndexOf(value);
+            return 0 <= index && index < upperBound;  // 0 <= index < upperBound
+        }
+
         public bool Remove(TValue item)
         {
             var index = IndexOf(item);
