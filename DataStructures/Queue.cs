@@ -96,6 +96,7 @@ namespace Library.DataStructures
 
         public IEnumerator<TValue> GetEnumerator()
         {
+            // TODO: should we make this a destructive iterator?
             foreach (var item in _items)
             {
                 yield return item;

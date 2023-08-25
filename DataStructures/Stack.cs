@@ -44,7 +44,7 @@ namespace Library.DataStructures
             }
 
             var item = Peek();
-            _items.RemoveAt(Count - 1);
+            _items.RemoveLast();
             return item;            
         }
 
@@ -88,6 +88,7 @@ namespace Library.DataStructures
 
         public IEnumerator<TValue> GetEnumerator()
         {
+            // TODO: should we make this a destructive iterator?
             var index = Count - 1;
             while (index >= 0)
             {
