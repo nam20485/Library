@@ -29,7 +29,7 @@ jobs:
       run: dotnet build DataStructures --configuration Release
 
     - name: Pack NuGet Package
-      run: dotnet pack DataStructures --use-symbols --configuration Release
+      run: dotnet pack DataStructures --include-symbols --configuration Release
 
     - name: Add NuGet Source
       run: |
