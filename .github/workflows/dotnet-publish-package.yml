@@ -21,6 +21,9 @@ jobs:
       with:
         dotnet-version: 7.0.400
 
+    - name: Build
+      run: dotnet build --configuration Release
+
     - name: Pack NuGet Package
       run: dotnet pack --configuration Release
 
