@@ -19,6 +19,11 @@ namespace Library.Tests
             _random = new Random();
         }
 
+        public int Next()
+        {
+            return _random.Next(MaxValue);
+        }
+
         public int[] Array(int length)
         {
            return this.Take(length).ToArray();
@@ -29,11 +34,16 @@ namespace Library.Tests
             return new RandomIntSequence(maxValue).Array(length);
         }
 
+        public static int Next(int maxValue)
+        { 
+            return new RandomIntSequence(maxValue).Next();
+        }
+
         public IEnumerator<int> GetEnumerator()
         {
             while (true)
             {
-                yield return _random.Next(MaxValue);
+                yield return Next();
             }
         }
 
