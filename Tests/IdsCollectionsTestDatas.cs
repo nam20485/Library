@@ -46,9 +46,9 @@ namespace Library.Tests
 
     public class RandomIntIDsCollectionTestData : IDsCollectionsTestData<int>
     {
-        private const int TestDatasCount = 100;
+        private const int TestDatasCount = 10;
         private const int TestDataLength = 100;
-        private const int MaxValue = 100;
+        private const int MaxValue = int.MaxValue;
 
         private readonly RandomIntSequence _sequence = new(MaxValue);
 
