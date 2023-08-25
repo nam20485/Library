@@ -14,9 +14,7 @@ namespace Library.DataStructures
         protected int _heapSize = 0;
 
         protected readonly IComparer<TValue> _comparer;
-
-        // TODO: change to => _heapSize
-        //public override int Count => _items.Count;
+       
         public override int Count => _heapSize;
 
         public Heap()
@@ -293,7 +291,7 @@ namespace Library.DataStructures
 
         public override bool Contains(TValue item)
         {
-            return _items.Take(Count).Contains(item);
+            return _items.Contains(item, Count);
         }
 
         public override void Clear()
