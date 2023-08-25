@@ -6,9 +6,7 @@ namespace Library.DataStructures
     {
         private readonly List<TValue> _items;
 
-        public int Count => _items.Count;
-
-        public bool IsReadOnly => false;
+        public int Count => _items.Count;        
 
         public Queue()
         {

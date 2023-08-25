@@ -8,8 +8,6 @@ namespace Library.DataStructures
 
         public int Count => _items.Count;
 
-        public bool IsReadOnly => false;
-
         public Stack()
         {
             _items = new List<TValue>();
