@@ -6,7 +6,13 @@
     <Nullable>enable</Nullable>
     <RootNamespace>Library.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>    
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <RepositoryUrl>https://github.com/nam20485/Library</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/nam20485/Library</PackageProjectUrl>
+    <Authors>nam20485</Authors>
+    <Company>nam20485.com</Company>
+    <IncludeSymbols>True</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>    
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

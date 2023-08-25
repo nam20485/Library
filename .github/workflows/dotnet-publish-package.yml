@@ -3,6 +3,10 @@
 
 name: .NET
 
+# /home/runner/work/Library/Library/Driver/bin/Release/Driver.1.0.0.nupkg
+# /home/runner/work/Library/Library/DataStructures/bin/Release
+# /home/runner/work/Library/Library/DataStructures/bin/Release/DataStructures.1.0.0.nupkg
+
 on:
   push:
     branches: [ "master", "development" ]
@@ -22,15 +26,17 @@ jobs:
         dotnet-version: 7.0.400
 
     - name: Build
-      run: dotnet build --configuration Release
+      run: dotnet build DataStructures --configuration Release
 
     - name: Pack NuGet Package
-      run: dotnet pack --configuration Release
+      run: dotnet pack DataStructures --use-symbols --configuration Release
 
     - name: Add NuGet Source
       run: |
         dotnet nuget add source --username nam20485 --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/nam20485/index.json"
 
     - name: Push Package
-      run: dotnet nuget push "bin/Release/Library.1.0.0.nupkg" --source "github"
+      run: |
+        dotnet nuget push "DataStructures/bin/Release/DataStructures.1.0.0.nupkg" --source "github"
+        dotnet nuget push "DataStructures/bin/Release/DataStructures.1.0.0.snupkg" --source "github"
         
