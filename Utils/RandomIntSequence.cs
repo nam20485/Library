@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library.Tests
+namespace Library.Utils
 {
     public class RandomIntSequence : IEnumerable<int>
     {        
