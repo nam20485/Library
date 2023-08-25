@@ -67,7 +67,7 @@ namespace Library.DataStructures
             var index = Count - 1;
             while (index >= 0)
             {
-                yield return _items[index];
+                yield return _items[index--];
             }
         }               
       
