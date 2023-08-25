@@ -58,7 +58,7 @@ namespace Library.DataStructures
 
         public override bool Contains(TValue item)
         {
-            return _items.Contains(item);
+            return _items.Contains(item, Count);
         }     
     
         public override IEnumerator<TValue> GetEnumerator()
