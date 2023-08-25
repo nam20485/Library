@@ -2,11 +2,11 @@
 
 namespace Library.DataStructures
 {
-    public class Queue<TValue> : IEnumerable<TValue>
+    public class Queue<TValue> : DsCollectionBase<TValue>
     {
         private readonly List<TValue> _items;
 
-        public int Count => _items.Count;        
+        public override int Count => _items.Count;        
 
         public Queue()
         {
@@ -15,28 +15,10 @@ namespace Library.DataStructures
 
         public Queue(IEnumerable<TValue> collection)
             : this()
-        {
-            if (collection == null)
-            {
-                throw new ArgumentNullException(nameof(collection));
-            }
-
+        {           
             AddRange(collection);
         }
-
-        private void AddRange(IEnumerable<TValue> collection)
-        {
-            if (collection == null)
-            {
-                throw new ArgumentNullException(nameof(collection));
-            }
-
-            foreach (var item in collection)
-            {
-                Add(item);
-            }
-        }
-
+       
         public void Enqueue(TValue value)
         {
             Add(value);
@@ -53,12 +35,7 @@ namespace Library.DataStructures
             _items.RemoveFirst();
             return item;
         }
-
-        public bool IsEmpty()
-        {
-            return Count == 0;
-        }
-
+     
         public TValue Peek()
         {
             if (IsEmpty())
@@ -69,41 +46,46 @@ namespace Library.DataStructures
             return _items[0];
         }
 
-        public void Add(TValue item)
+        public override void Add(TValue item)
         {
             _items.Add(item);
         }
 
-        public void Clear()
+        public override void Clear()
         {
             _items.Clear();
         }
 
-        public bool Contains(TValue item)
+        public override bool Contains(TValue item)
         {
             return _items.Contains(item);
-        }
+        }       
 
-        public void CopyTo(TValue[] array, int arrayIndex)
-        {            
-            foreach (var item in this)
-            {
-                array[arrayIndex++] = item;
-            }
-        }
-
-        public IEnumerator<TValue> GetEnumerator()
+        public override IEnumerator<TValue> GetEnumerator()
         {
             // TODO: should we make this a destructive iterator?
             foreach (var item in _items)
             {
                 yield return item;
             }
-        }   
+        }               
 
-        IEnumerator IEnumerable.GetEnumerator()
+        public override IDsCollection<TValue> CopyOf()
         {
-            return GetEnumerator();
+            return new Queue<TValue>(_items);
+        }
+
+        protected override string GetStringRepresentation()
+        {
+            return _items.ToString();
+        }
+
+        protected override void CopyOnlyItemsTo(TValue[] array, int arrayIndex = 0)
+        {
+            foreach (var item in this)
+            {
+                array[arrayIndex++] = item;
+            }
         }
     }
 }
