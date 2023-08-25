@@ -142,17 +142,17 @@ namespace Library.Tests
                 new DataStructures.Heap<int>((IEnumerable<int>)null);
             });
         }
-        
+       
         [Theory]
         //[MemberData(nameof(Data))]
         //[ClassData(typeof(IntIDsCollectionTestData))]
         [ClassData(typeof(RandomIntIDsCollectionTestData))]
         public void Test_IdsCollectionRandomOperations(IDsCollection<int> collection, int[] inputs)
         {
-            // used by some of the operations to get a random value from the inputs[]
+             // used by some of the operations to get a random value from the inputs[]
             var random = new Random();
 
-            var iterationCount = 100;
+            var iterationCount = 10_000;
             while (iterationCount-- > 0)
             {
                 switch (Operations.NextType())
@@ -197,6 +197,14 @@ namespace Library.Tests
                             }
                             break;
                         }
+                    case Operations.Type.ToString:
+                        {
+                            if (collection.Count > 0)
+                            {
+                                collection.ToString().Should().NotBeNullOrWhiteSpace();
+                            }                            
+                            break;
+                        }
                     case Operations.Type.CopyOf:
                         {
                             var copy = collection.CopyOf();
@@ -220,17 +228,61 @@ namespace Library.Tests
                         }
                     case Operations.Type.ToArray:
                         {
+                            var array = collection.ToArray();
+                            array.Length.Should().Be(collection.Count);
+                            foreach (var n in array)
+                            {
+                                collection.Contains(n).Should().BeTrue();
+                            }
+                            break;
+                        }
+                    case Operations.Type.ToArrayOfT:
+                        {
                             var array = collection.ToArray<int>();
+                            array.Length.Should().Be(collection.Count);
+                            foreach (var n in array)
+                            {
+                                collection.Contains(n).Should().BeTrue();
+                            }
+                            break;
+                        }
+                    case Operations.Type.ToList:
+                        {
+                            var list = collection.ToList();
+                            list.Count.Should().Be(collection.Count);
+                            foreach (var n in list)
+                            {
+                                collection.Contains(n).Should().BeTrue();
+                            }
+                            break;
+                        }
+                    case Operations.Type.ToListOfT:
+                        {
+                            var list = collection.ToList<int>();
+                            list.Count.Should().Be(collection.Count);
+                            foreach (var n in list)
+                            {
+                                collection.Contains(n).Should().BeTrue();
+                            }
                             break;
                         }
 
                 }                             
-            }         
-            //ToArray,
+            }
+
+
             //ToList,
             //ToHeap,
+            //ToMinHeap,
             //ToQueue,
             //ToStack
+
+            //ToArrayOfT,
+            //ToListOfT,
+            //ToHeapOfT,
+            //ToMinHeapOfT,
+            //ToQueueOfT,
+            //ToStackOfT,
 
             int RandomInput()
             {
