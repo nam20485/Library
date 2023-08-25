@@ -21,4 +21,9 @@
     <ProjectReference Include="..\Utils\Utils.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Collections\" />
+    <Folder Include="Sorting\" />
+  </ItemGroup>
+
 </Project>
