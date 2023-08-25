@@ -42,17 +42,26 @@ namespace Library.Utils
         { 
             Clear,
             Add,           
-            AddRange,
-            ToString,
-            Contains,
-            CopyTo,
+            AddRange,            
+            Contains,           
             IsEmpty,
+            
+            CopyTo,
             CopyOf,
+            
             ToArray,
             ToList,
             ToHeap,
+            ToMinHeap,
             ToQueue,
-            ToStack
+            ToStack,
+
+            ToArrayOfT,
+            ToListOfT,
+            ToHeapOfT,
+            ToMinHeapOfT,
+            ToQueueOfT,
+            ToStackOfT,
         }
 
     }
