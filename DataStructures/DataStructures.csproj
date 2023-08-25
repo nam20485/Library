@@ -23,7 +23,6 @@
 
   <ItemGroup>
     <Folder Include="Collections\" />
-    <Folder Include="Sorting\" />
   </ItemGroup>
 
 </Project>
