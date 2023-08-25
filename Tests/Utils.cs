@@ -18,8 +18,13 @@ namespace Library.Tests
         {
             var list = new DataStructures.List<int>(inputs);
             list.Should().NotBeNull();
-            list.Should().NotBeEmpty();
+            if (inputs.Length > 0)
+            {
+                list.Should().NotBeEmpty();
+            }
             list.Should().HaveCount(inputs.Length);
+            list.Should().Contain(inputs);
+            list.Should().BeEquivalentTo(inputs);
             return list;
         }
     }
