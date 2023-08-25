@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 
 using Library.DataStructures;
+using Library.Utils;
 
 namespace Library.Tests
 {
@@ -10,7 +11,7 @@ namespace Library.Tests
         //[MemberData(nameof(Data))]
         //[ClassData(typeof(IntIDsCollectionTestData))]
         [ClassData(typeof(RandomIntIDsCollectionTestData))]
-        public void TestIdsCollections(IDsCollection<int> collection, int[] inputs)
+        public void Test_IdsCollectionOperations(IDsCollection<int> collection, int[] inputs)
         {
             Console.WriteLine($"Original: {collection}");
 
@@ -130,18 +131,58 @@ namespace Library.Tests
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                new DataStructures.List<int>((IEnumerable<int>) null);
+                new DataStructures.List<int>((IEnumerable<int>)null);
             });
 
             Assert.Throws<ArgumentNullException>(() =>
             {
-                new DataStructures.LinkedList<int>((IEnumerable<int>) null);
+                new DataStructures.LinkedList<int>((IEnumerable<int>)null);
             });
 
             Assert.Throws<ArgumentNullException>(() =>
             {
-                new DataStructures.Heap<int>((IEnumerable<int>) null);
+                new DataStructures.Heap<int>((IEnumerable<int>)null);
             });
+        }
+        
+        [Theory]
+        //[MemberData(nameof(Data))]
+        //[ClassData(typeof(IntIDsCollectionTestData))]
+        [ClassData(typeof(RandomIntIDsCollectionTestData))]
+        public void Test_IdsCollectionRandomOperations(IDsCollection<int> collection, int[] inputs)
+        {
+            // used by some of the operations to get a random value from the inputs[]
+            var random = new Random();
+
+            var iterationCount = 100;
+            while (iterationCount-- > 0)
+            {
+                //try
+                {
+                    switch (Operations.NextType())
+                    {
+                        case Operations.Type.Clear:
+                            collection.Clear();
+                            collection.IsEmpty().Should().BeTrue();
+                            collection.Count.Should().Be(0);
+                            //collection.Should().BeEmpty();
+                            //collection.Should().HaveCount(0);
+                            break;
+                        case Operations.Type.Add: // Add()
+                            var prevCount = collection.Count;
+                            var input = inputs[random.Next(inputs.Length)];
+                            collection.Add(input);
+                            collection.Count.Should().Be(prevCount + 1);
+                            collection.Should().Contain(input);
+                            break;
+                            // ...                       
+                    }
+                }
+                //catch (Exception ex)
+                //{
+                //    Assert.Fail($"iteration: {iterationCount}, collection: ({collection.GetType()}) {collection}{Environment.NewLine}{ex}");
+                //}
+            }
         }
     }
 }
