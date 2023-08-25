@@ -28,6 +28,7 @@ namespace Library.DataStructures
         public List<TValue> ToList() => new (ToArray());
         public Heap<TValue> ToHeap() => new (ToArray());
         public Heap<TValue> ToHeap(IComparer<TValue> comparer) => new (ToArray(), comparer);
+        public MinHeap<TValue> ToMinHeap() => new (ToArray());
         public Stack<TValue> ToStack() => new (ToArray());
         public Queue<TValue> ToQueue() => new (ToArray());
         
