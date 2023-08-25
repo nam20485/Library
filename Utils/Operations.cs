@@ -45,6 +45,8 @@ namespace Library.Utils
             AddRange,            
             Contains,           
             IsEmpty,
+
+            ToString,
             
             CopyTo,
             CopyOf,
