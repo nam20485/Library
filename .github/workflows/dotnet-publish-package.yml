@@ -1,7 +1,7 @@
 # Pack NuGet package and push to nam20485's package registry
 # https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-nuget-registry
 
-name: .NET
+name: Pack and Publish .NET
 
 # /home/runner/work/Library/Library/Driver/bin/Release/Driver.1.0.0.nupkg
 # /home/runner/work/Library/Library/DataStructures/bin/Release
