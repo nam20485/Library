@@ -126,21 +126,21 @@ namespace Library.Tests
         //        };
 
         [Fact]
-        public void CantConstructWithNullCollection()
+        public void ConstructionWithNullCollectionThrowsException()
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                new DataStructures.List<int>((IEnumerable<int>)null);
+                new DataStructures.List<int>((IEnumerable<int>) null);
             });
 
             Assert.Throws<ArgumentNullException>(() =>
             {
-                new DataStructures.LinkedList<int>((IEnumerable<int>)null);
+                new DataStructures.LinkedList<int>((IEnumerable<int>) null);
             });
 
             Assert.Throws<ArgumentNullException>(() =>
             {
-                new DataStructures.Heap<int>((IEnumerable<int>)null);
+                new DataStructures.Heap<int>((IEnumerable<int>) null);
             });
         }
     }
