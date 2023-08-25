@@ -350,5 +350,9 @@ namespace Library.DataStructures
         {
             return new List<TValue>(_items.Take(Count));
         }
+
+        // "cast" operators to ICollection (not allowed to cast to interfaces!)
+        //public static implicit operator DataStructures.List<TValue>(ICollection<TValue> c) => d.digit;
+        //public static explicit operator ICollection<TValue>(List b) => new Digit(b);  
     }
 }
