@@ -30,10 +30,10 @@ namespace Library.Utils
 
         public static IEnumerable<Type> Types()
         {
-            yield return Next();
+            yield return NextType();
         }
 
-        public static Type Next()
+        public static Type NextType()
         {
             return TypeValues[_random.Next(TypeValues.Length)];
         }
