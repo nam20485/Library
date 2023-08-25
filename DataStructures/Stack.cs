@@ -15,12 +15,7 @@ namespace Library.DataStructures
 
         public Stack(IEnumerable<TValue> collection)
             : this()
-        {
-            if (collection == null)
-            {
-                throw new ArgumentNullException(nameof(collection));
-            }
-
+        {           
             AddRange(collection);
         }      
         

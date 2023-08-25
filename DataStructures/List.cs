@@ -54,12 +54,7 @@ namespace Library.DataStructures
         /// <param name="collection">IEnumerable to copy elements from.</param>
         public List(IEnumerable<TValue> collection)
             : this(collection.Count())
-        {
-            if (collection == null)
-            {
-                throw new ArgumentNullException(nameof(collection));
-            }
-
+        {           
             AddRange(collection);      
         }
 
