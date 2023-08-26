@@ -58,27 +58,7 @@ namespace Library.DataStructures
             {
                 _items.Insert(index, newNode);
             }
-        }
-
-        public Node Peek()
-        {
-            if (_heapSize < 1)
-            {
-                // TODO: better name for "heap underflow" exception
-                throw new InvalidPriorityQueueException("Heap underflow");
-            }
-
-            return _items[0];
-        }
-
-        public Node Remove()
-        {
-            var max = Peek();
-            _items[0] = _items[_heapSize - 1];
-            _heapSize--;
-            Heapify(0);
-            return max;
-        }
+        }        
 
         public override IEnumerator<PriorityQueue<TValue, TKey>.Node> GetEnumerator()
         {
