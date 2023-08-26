@@ -13,10 +13,10 @@ namespace Library.Tests
                 new DataStructures.Heap<TInput>(inputs)
             };
         }
-
-        public static DataStructures.List<int> MakeList(int[] inputs)
+    
+        public static DataStructures.List<TValue> MakeList<TValue>(TValue[] inputs)
         {
-            var list = new DataStructures.List<int>(inputs);
+            var list = new DataStructures.List<TValue>(inputs);
             list.Should().NotBeNull();
             if (inputs.Length > 0)
             {
