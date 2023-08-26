@@ -31,7 +31,7 @@ jobs:
         VERSION: ${{ vars.VERSION_PREFIX }}.${{ github.run_number }}
 
     - name: Pack NuGet Package
-      run: dotnet pack DataStructures --include-symbols --configuration Release  /p:Version=${{ env.VERSION }}
+      run: dotnet pack DataStructures --include-symbols --configuration Release --no-build --no-restore /p:Version=${{ env.VERSION }}
       env:
         VERSION: ${{ vars.VERSION_PREFIX }}.${{ github.run_number }}
 
