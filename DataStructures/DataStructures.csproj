@@ -5,8 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <RootNamespace>Library.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>    
     <RepositoryUrl>https://github.com/nam20485/Library</RepositoryUrl>
     <PackageProjectUrl>https://github.com/nam20485/Library</PackageProjectUrl>
     <Authors>nam20485</Authors>
