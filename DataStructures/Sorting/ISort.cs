@@ -8,6 +8,9 @@ namespace Library.DataStructures.Sorting
 {
     public interface ISort<TInput>
     {
-        TInput[] Sort(IEnumerable<TInput> inputs);
+        TInput[] Sort();
+
+        static abstract TInput[] Sort(IEnumerable<TInput> inputs);
+        static abstract TInput[] Sort(IEnumerable<TInput> inputs, IComparer<TInput> comparer);
     }
 }

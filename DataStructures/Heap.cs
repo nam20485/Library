@@ -249,28 +249,7 @@ namespace Library.DataStructures
                 Heapify(0);
             }
             return _items.ToArray();
-        }
-
-        /// <summary>
-        /// Returns a new array that has been heap sorted.
-        /// </summary>
-        /// <param name="items"><see cref="IEnumerable&lt;TValue&gt;"/>&lt;<typeparamref name="TValue"/>&gt; of items to sort.</param>
-        /// <returns>A new <typeparamref name="TValue"/>[] that has been heap sorted.</returns>
-        public static TValue[] HeapSort(IEnumerable<TValue> items)
-        {
-            return new Heap<TValue>(items).Sort();
-        }
-
-        /// <summary>
-        /// Returns a new array that has been heap sorted using the specified IComparer.
-        /// </summary>
-        /// <param name="items"><see cref="IEnumerable&lt;TValue&gt;"/>&lt;<typeparamref name="TValue"/>&gt; of items to sort.</param>        
-        /// <param name="comparer">IComparer&lt;<typeparamref name="TValue"/>&gt; to compare items when sorting.</param>
-        /// <returns>A new <typeparamref name="TValue"/>[] that has been heap sorted.</returns>
-        public static TValue[] HeapSort(IEnumerable<TValue> items, IComparer<TValue> comparer)
-        {
-            return new Heap<TValue>(items, comparer).Sort();
-        }       
+        }        
 
         public override IEnumerator<TValue> GetEnumerator()
         {
