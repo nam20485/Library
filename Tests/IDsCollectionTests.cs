@@ -288,9 +288,9 @@ namespace Library.Tests
                         }
                     case Operations.Type.ToMinHeap:
                         {
-                            var heap = collection.ToMinHeap();
-                            heap.Count.Should().Be(collection.Count);
-                            foreach (var n in heap)
+                            var minHeap = collection.ToMinHeap();
+                            minHeap.Count.Should().Be(collection.Count);
+                            foreach (var n in minHeap)
                             {
                                 collection.Contains(n).Should().BeTrue();
                             }
@@ -298,9 +298,9 @@ namespace Library.Tests
                         }
                     case Operations.Type.ToMinHeapOfT:
                         {
-                            var heap = collection.ToMinHeap<int>();
-                            heap.Count.Should().Be(collection.Count);
-                            foreach (var n in heap)
+                            var minHeap = collection.ToMinHeap<int>();
+                            minHeap.Count.Should().Be(collection.Count);
+                            foreach (var n in minHeap)
                             {
                                 collection.Contains(n).Should().BeTrue();
                             }
