@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Library.Utils
-{
-    public class Operations : IEnumerable<Operations.Type>
+{       
+    public class Operations<TEnum> : IEnumerable<TEnum>
+        where TEnum : struct, Enum
     {
-        public static readonly Type[] TypeValues = Enum.GetValues<Type>();
+        public static readonly TEnum[] TypeValues = Enum.GetValues<TEnum>();
 
-        private static readonly Random _random = new Random();
+        private static readonly Random _random = new ();
 
-        public IEnumerator<Type> GetEnumerator()
+        public IEnumerator<TEnum> GetEnumerator()
         {
             var random = new Random();
 
@@ -28,43 +30,14 @@ namespace Library.Utils
             return GetEnumerator();
         }
 
-        public static IEnumerable<Type> Types()
+        public static IEnumerable<TEnum> Types()
         {
             yield return NextType();
         }
 
-        public static Type NextType()
+        public static TEnum NextType()
         {
             return TypeValues[_random.Next(TypeValues.Length)];
-        }
-
-        public enum Type
-        { 
-            Clear,
-            Add,           
-            AddRange,            
-            Contains,           
-            IsEmpty,
-
-            ToString,
-            
-            CopyTo,
-            CopyOf,
-            
-            ToArray,
-            ToList,
-            ToHeap,
-            ToMinHeap,
-            ToQueue,
-            ToStack,
-
-            ToArrayOfT,
-            ToListOfT,
-            ToHeapOfT,
-            ToMinHeapOfT,
-            ToQueueOfT,
-            ToStackOfT,
-        }
-
+        }      
     }
 }

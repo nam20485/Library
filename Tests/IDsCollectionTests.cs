@@ -155,16 +155,16 @@ namespace Library.Tests
             var iterationCount = 10_000;
             while (iterationCount-- > 0)
             {
-                switch (Operations.NextType())
+                switch (IDsCollectionOperations.NextType())
                 {
-                    case Operations.Type.Clear:
+                    case IDsCollectionOperations.Type.Clear:
                         {
                             collection.Clear();
                             collection.IsEmpty().Should().BeTrue();
                             collection.Count.Should().Be(0);
                             break;
                         }
-                    case Operations.Type.Add:
+                    case IDsCollectionOperations.Type.Add:
                         {
                             var prevCount = collection.Count;
                             var input = RandomInput();
@@ -173,7 +173,7 @@ namespace Library.Tests
                             collection.Contains(input).Should().BeTrue();
                             break;
                         }
-                    case Operations.Type.Contains:
+                    case IDsCollectionOperations.Type.Contains:
                         {
                             foreach (var item in collection)
                             {
@@ -181,14 +181,14 @@ namespace Library.Tests
                             }
                             break;
                         }
-                    case Operations.Type.IsEmpty:
+                    case IDsCollectionOperations.Type.IsEmpty:
                         {
                             collection.IsEmpty().Should().Be(collection.Count == 0);
                             collection.Add(RandomInput());
                             collection.IsEmpty().Should().BeFalse();
                             break;
                         }
-                    case Operations.Type.AddRange:
+                    case IDsCollectionOperations.Type.AddRange:
                         {
                             collection.AddRange(inputs);
                             foreach (var input in inputs)
@@ -197,7 +197,7 @@ namespace Library.Tests
                             }
                             break;
                         }
-                    case Operations.Type.ToString:
+                    case IDsCollectionOperations.Type.ToString:
                         {
                             if (collection.Count > 0)
                             {
@@ -205,7 +205,7 @@ namespace Library.Tests
                             }
                             break;
                         }
-                    case Operations.Type.CopyOf:
+                    case IDsCollectionOperations.Type.CopyOf:
                         {
                             var copy = collection.CopyOf();
                             copy.Count.Should().Be(collection.Count);
@@ -215,7 +215,7 @@ namespace Library.Tests
                             }
                             break;
                         }
-                    case Operations.Type.CopyTo:
+                    case IDsCollectionOperations.Type.CopyTo:
                         {
                             var array = new int[collection.Count];
                             collection.CopyTo(array);
@@ -226,7 +226,7 @@ namespace Library.Tests
                             }
                             break;
                         }
-                    case Operations.Type.ToArray:
+                    case IDsCollectionOperations.Type.ToArray:
                         {
                             var array = collection.ToArray();
                             array.Length.Should().Be(collection.Count);
@@ -236,7 +236,7 @@ namespace Library.Tests
                             }
                             break;
                         }
-                    case Operations.Type.ToArrayOfT:
+                    case IDsCollectionOperations.Type.ToArrayOfT:
                         {
                             var array = collection.ToArray<int>();
                             array.Length.Should().Be(collection.Count);
@@ -246,7 +246,7 @@ namespace Library.Tests
                             }
                             break;
                         }
-                    case Operations.Type.ToList:
+                    case IDsCollectionOperations.Type.ToList:
                         {
                             var list = collection.ToList();
                             list.Count.Should().Be(collection.Count);
@@ -256,7 +256,7 @@ namespace Library.Tests
                             }
                             break;
                         }
-                    case Operations.Type.ToListOfT:
+                    case IDsCollectionOperations.Type.ToListOfT:
                         {
                             var list = collection.ToList<int>();
                             list.Count.Should().Be(collection.Count);
@@ -266,7 +266,7 @@ namespace Library.Tests
                             }
                             break;
                         }
-                    case Operations.Type.ToHeap:
+                    case IDsCollectionOperations.Type.ToHeap:
                         {
                             var heap = collection.ToHeap();
                             heap.Count.Should().Be(collection.Count);
@@ -276,7 +276,7 @@ namespace Library.Tests
                             }
                             break;
                         }
-                    case Operations.Type.ToHeapOfT:
+                    case IDsCollectionOperations.Type.ToHeapOfT:
                         {
                             var heap = collection.ToHeap<int>();
                             heap.Count.Should().Be(collection.Count);
@@ -286,7 +286,7 @@ namespace Library.Tests
                             }
                             break;
                         }
-                    case Operations.Type.ToMinHeap:
+                    case IDsCollectionOperations.Type.ToMinHeap:
                         {
                             var minHeap = collection.ToMinHeap();
                             minHeap.Count.Should().Be(collection.Count);
@@ -296,7 +296,7 @@ namespace Library.Tests
                             }
                             break;
                         }
-                    case Operations.Type.ToMinHeapOfT:
+                    case IDsCollectionOperations.Type.ToMinHeapOfT:
                         {
                             var minHeap = collection.ToMinHeap<int>();
                             minHeap.Count.Should().Be(collection.Count);
@@ -306,7 +306,7 @@ namespace Library.Tests
                             }
                             break;
                         }
-                    case Operations.Type.ToQueue:
+                    case IDsCollectionOperations.Type.ToQueue:
                         {
                             var queue = collection.ToQueue();
                             queue.Count.Should().Be(collection.Count);
@@ -316,7 +316,7 @@ namespace Library.Tests
                             }
                             break;
                         }
-                    case Operations.Type.ToQueueOfT:
+                    case IDsCollectionOperations.Type.ToQueueOfT:
                         {
                             var queue = collection.ToQueue<int>();
                             queue.Count.Should().Be(collection.Count);
@@ -326,7 +326,7 @@ namespace Library.Tests
                             }
                             break;
                         }
-                    case Operations.Type.ToStack:
+                    case IDsCollectionOperations.Type.ToStack:
                         {
                             var stack = collection.ToStack();
                             stack.Count.Should().Be(collection.Count);
@@ -336,7 +336,7 @@ namespace Library.Tests
                             }
                             break;
                         }
-                    case Operations.Type.ToStackOfT:
+                    case IDsCollectionOperations.Type.ToStackOfT:
                         {
                             var stack = collection.ToStack<int>();
                             stack.Count.Should().Be(collection.Count);
