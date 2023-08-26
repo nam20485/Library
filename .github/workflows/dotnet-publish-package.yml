@@ -3,10 +3,6 @@
 
 name: Pack and Publish .NET
 
-# /home/runner/work/Library/Library/Driver/bin/Release/Driver.1.0.0.nupkg
-# /home/runner/work/Library/Library/DataStructures/bin/Release
-# /home/runner/work/Library/Library/DataStructures/bin/Release/DataStructures.1.0.0.nupkg
-
 on:
   push:
     branches: [ "master", "development" ]
