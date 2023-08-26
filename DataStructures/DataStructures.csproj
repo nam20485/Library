@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <Folder Include="Collections\" />
+    <Folder Include="Sets\" />
   </ItemGroup>
 
 </Project>
