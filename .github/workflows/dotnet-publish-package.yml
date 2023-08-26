@@ -7,6 +7,9 @@ on:
   push:
     branches: [ "master", "development" ]
 
+env:
+  VERSION: ${{ vars.VERSION_PREFIX }}.${{ github.run_number }}
+
 jobs:
   pack-and-push:
 
@@ -22,14 +25,10 @@ jobs:
         dotnet-version: 7.0.400
 
     - name: Build
-      run: dotnet build DataStructures --configuration Release /p:Version=${{ env.VERSION }}
-      env:
-        VERSION: ${{ vars.VERSION_PREFIX }}.${{ github.run_number }}
+      run: dotnet build DataStructures --configuration Release /p:Version=${{ env.VERSION }} 
 
     - name: Pack NuGet Package
-      run: dotnet pack DataStructures --include-symbols --configuration Release --no-build --no-restore /p:Version=${{ env.VERSION }}
-      env:
-        VERSION: ${{ vars.VERSION_PREFIX }}.${{ github.run_number }}
+      run: dotnet pack DataStructures --include-symbols --configuration Release --no-build --no-restore /p:Version=${{ env.VERSION }}    
 
     - name: Add NuGet Source
       run: |
@@ -38,7 +37,6 @@ jobs:
     - name: Push Package
       run: |
         dotnet nuget push "DataStructures/bin/Release/DataStructures.${{ env.VERSION }}.nupkg" --source "github"
-        dotnet nuget push "DataStructures/bin/Release/DataStructures.${{ env.VERSION }}.snupkg" --source "github"        
-      env:
-        VERSION: ${{ vars.VERSION_PREFIX }}.${{ github.run_number }}
+        dotnet nuget push "DataStructures/bin/Release/DataStructures.${{ env.VERSION }}.snupkg" --source "github"
+ 
         
