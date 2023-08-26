@@ -16,6 +16,7 @@
         List<TValue> ToList();
         Heap<TValue> ToHeap();
         Heap<TValue> ToHeap(IComparer<TValue> comparer);
+        MinHeap<TValue> ToMinHeap();
         Queue<TValue> ToQueue();
         Stack<TValue> ToStack();
 
