@@ -202,7 +202,7 @@ namespace Library.Tests
                             if (collection.Count > 0)
                             {
                                 collection.ToString().Should().NotBeNullOrWhiteSpace();
-                            }                            
+                            }
                             break;
                         }
                     case Operations.Type.CopyOf:
@@ -212,13 +212,13 @@ namespace Library.Tests
                             foreach (var item in collection)
                             {
                                 copy.Contains(item).Should().BeTrue();
-                            }                           
+                            }
                             break;
                         }
                     case Operations.Type.CopyTo:
                         {
                             var array = new int[collection.Count];
-                            collection.CopyTo(array);                            
+                            collection.CopyTo(array);
                             array.Length.Should().Be(collection.Count);
                             foreach (var n in array)
                             {
@@ -266,23 +266,89 @@ namespace Library.Tests
                             }
                             break;
                         }
+                    case Operations.Type.ToHeap:
+                        {
+                            var heap = collection.ToHeap();
+                            heap.Count.Should().Be(collection.Count);
+                            foreach (var n in heap)
+                            {
+                                collection.Contains(n).Should().BeTrue();
+                            }
+                            break;
+                        }
+                    case Operations.Type.ToHeapOfT:
+                        {
+                            var heap = collection.ToHeap<int>();
+                            heap.Count.Should().Be(collection.Count);
+                            foreach (var n in heap)
+                            {
+                                collection.Contains(n).Should().BeTrue();
+                            }
+                            break;
+                        }
+                    case Operations.Type.ToMinHeap:
+                        {
+                            var heap = collection.ToMinHeap();
+                            heap.Count.Should().Be(collection.Count);
+                            foreach (var n in heap)
+                            {
+                                collection.Contains(n).Should().BeTrue();
+                            }
+                            break;
+                        }
+                    case Operations.Type.ToMinHeapOfT:
+                        {
+                            var heap = collection.ToMinHeap<int>();
+                            heap.Count.Should().Be(collection.Count);
+                            foreach (var n in heap)
+                            {
+                                collection.Contains(n).Should().BeTrue();
+                            }
+                            break;
+                        }
+                    case Operations.Type.ToQueue:
+                        {
+                            var queue = collection.ToQueue();
+                            queue.Count.Should().Be(collection.Count);
+                            foreach (var n in queue)
+                            {
+                                collection.Contains(n).Should().BeTrue();
+                            }
+                            break;
+                        }
+                    case Operations.Type.ToQueueOfT:
+                        {
+                            var queue = collection.ToQueue<int>();
+                            queue.Count.Should().Be(collection.Count);
+                            foreach (var n in queue)
+                            {
+                                collection.Contains(n).Should().BeTrue();
+                            }
+                            break;
+                        }
+                    case Operations.Type.ToStack:
+                        {
+                            var stack = collection.ToStack();
+                            stack.Count.Should().Be(collection.Count);
+                            foreach (var n in stack)
+                            {
+                                collection.Contains(n).Should().BeTrue();
+                            }
+                            break;
+                        }
+                    case Operations.Type.ToStackOfT:
+                        {
+                            var stack = collection.ToStack<int>();
+                            stack.Count.Should().Be(collection.Count);
+                            foreach (var n in stack)
+                            {
+                                collection.Contains(n).Should().BeTrue();
+                            }
+                            break;
 
-                }                             
-            }
-
-
-            //ToList,
-            //ToHeap,
-            //ToMinHeap,
-            //ToQueue,
-            //ToStack
-
-            //ToArrayOfT,
-            //ToListOfT,
-            //ToHeapOfT,
-            //ToMinHeapOfT,
-            //ToQueueOfT,
-            //ToStackOfT,
+                        }
+                }
+            }        
 
             int RandomInput()
             {
