@@ -56,6 +56,11 @@ namespace Library.DataStructures
             _items.Clear();
         }
 
+        public override TValue Remove()
+        {
+            return Pop();
+        }
+
         public override bool Contains(TValue item)
         {
             return _items.Contains(item, Count);

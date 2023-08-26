@@ -11,7 +11,8 @@ namespace Library.DataStructures
 
         public abstract void Add(TValue item);
         public abstract bool Contains(TValue item);
-        public abstract void Clear();        
+        public abstract void Clear();
+        public abstract TValue Remove();
 
         public abstract IEnumerator<TValue> GetEnumerator();
         public abstract IDsCollection<TValue> CopyOf();

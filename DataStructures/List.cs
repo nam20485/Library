@@ -171,6 +171,18 @@ namespace Library.DataStructures
             }
         }
 
+        public override TValue Remove()
+        {
+            if (Count == 0)
+            {
+                throw new InvalidOperationException("Cannot remove from empty collection.");
+            }
+
+            var last = this[Count-1];
+            RemoveLast();
+            return last;
+        }
+
         public override bool Contains(TValue item)
         {
             return IndexOf(item) != -1;

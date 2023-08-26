@@ -7,6 +7,7 @@
         void Add(TValue item);
         bool Contains(TValue item);
         void Clear();
+        TValue Remove();
 
         void AddRange(IEnumerable<TValue> collection);
         void CopyTo(TValue[] array, int arrayIndex = 0);

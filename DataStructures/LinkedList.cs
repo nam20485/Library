@@ -50,7 +50,20 @@ namespace Library.DataStructures
             _head = null;
             _tail = null;
             _count = 0;
-        }        
+        }
+
+        public override TValue Remove()
+        {
+            if (Count == 0)
+            {
+                throw new InvalidOperationException("Cannot remove from empty collection.");
+            }
+
+            // _tail should != null if Count > 0
+            var lastValue = _tail.Value;
+            RemoveLast();
+            return lastValue;
+        }
 
         public override bool Contains(TValue value)
         {

@@ -294,6 +294,25 @@ namespace Library.DataStructures
             return _items.Contains(item, Count);
         }
 
+        public override TValue Remove()
+        {
+            var max = Peek();
+            _items[0] = _items[_heapSize - 1];
+            _heapSize--;
+            Heapify(0);
+            return max;           
+        }
+
+        public TValue Peek()
+        {
+            if (_heapSize < 1)
+            {
+                throw new InvalidOperationException("heap is empty");
+            }
+
+            return _items[0];
+        }
+
         public override void Clear()
         {
             _items.Clear();
