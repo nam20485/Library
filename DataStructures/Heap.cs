@@ -6,6 +6,8 @@ using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
+using Library.Utils;
+
 namespace Library.DataStructures
 {
     public class Heap<TValue> : DsCollectionBase<TValue>
@@ -179,6 +181,11 @@ namespace Library.DataStructures
 
         public bool IsHeap(int index = 0)
         {
+            if (index < 0 || index >= Count)
+            {
+                throw new ArgumentOutOfRangeException($"{Caller.MemberNameLocation()} - {nameof(index)}: {index} (size = {Count})");
+            }
+
             if (!IsLeaf(index))
             {
                 var l = LeftChildIndex(index);
@@ -213,7 +220,15 @@ namespace Library.DataStructures
 
         public bool SatisfiesHeapProperty(int index = 1)
         {
-            //for (int i = 0; i < ParentIndex(_items.Count/2-1); i++)
+            if (index == 0)
+            {
+                throw new InvalidOperationException("cannot evaluate heap property on root of heap");
+            }
+            else if (index < 0 || index >= Count)
+            {
+                throw new ArgumentOutOfRangeException($"{Caller.MemberNameLocation()} - {nameof(index)}: {index} (size = {Count})");
+            }
+
             for (int i = index; i < _heapSize; i++)
             {
                 if (!HeapProperty(i))

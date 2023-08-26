@@ -38,7 +38,7 @@ namespace Library.DataStructures
         {
             if (capacity < 0)
             {
-                throw new ArgumentOutOfRangeException($"{nameof(capacity)}: {capacity}");
+                throw new ArgumentOutOfRangeException($"{Caller.MemberNameLocation()} - {nameof(capacity)}: {capacity}");
             }
 
             _size = 0;
