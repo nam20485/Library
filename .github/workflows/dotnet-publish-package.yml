@@ -26,10 +26,10 @@ jobs:
         dotnet-version: 7.0.400
 
     - name: Build
-      run: dotnet build DataStructures --configuration Release
+      run: dotnet build DataStructures --configuration Release /p:Version=0.0.${{ github.run_number }}
 
     - name: Pack NuGet Package
-      run: dotnet pack DataStructures --include-symbols --configuration Release
+      run: dotnet pack DataStructures --include-symbols --configuration Release /p:Version=0.0.${{ github.run_number }}
 
     - name: Add NuGet Source
       run: |
@@ -37,6 +37,6 @@ jobs:
 
     - name: Push Package
       run: |
-        dotnet nuget push "DataStructures/bin/Release/DataStructures.1.0.0.nupkg" --source "github"
-        dotnet nuget push "DataStructures/bin/Release/DataStructures.1.0.0.snupkg" --source "github"
+        dotnet nuget push "DataStructures/bin/Release/DataStructures.0.0.${{ github.run_number }}.nupkg" --source "github"
+        dotnet nuget push "DataStructures/bin/Release/DataStructures.0.0.${{ github.run_number }}.snupkg" --source "github"
         
