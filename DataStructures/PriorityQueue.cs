@@ -29,11 +29,15 @@ namespace Library.DataStructures
             Insert(new Node(value, key));
         }
 
+        // TODO: move Insert() down into Heap
+        // I'm pretty sure Heap.Add(Node) accomplishes the same thing as below,
+        // which means that PQ has _nothing_ beyond Heap's methods, except for this
+        // separate implementation of "Add()".
+        // Only two differences beside this INsert(Node), is:
+        //  1.) convenience method Insert(value, key)
+        //  2.) GetEnumerator() is a destructive iterator (i.e. it calls Remove())
         public void Insert(Node newNode)
         {
-            // make room for new node
-            //_items.EnsureCapacity(_items.Count + 1);
-
             _heapSize++;
             var index = _heapSize - 1;
             while (index > 0 && _comparer.Compare(_items[ParentIndex(index)], newNode) < 0)
@@ -45,6 +49,7 @@ namespace Library.DataStructures
                 }
                 else
                 {
+                    // add it at the end (aka _items.AddLast(newNode))
                     _items.Insert(index, _items[parentIndex]);
                 }
                 
@@ -56,6 +61,7 @@ namespace Library.DataStructures
             }
             else
             {
+                // add it at the end (aka _items.AddLast(newNode))
                 _items.Insert(index, newNode);
             }
         }        

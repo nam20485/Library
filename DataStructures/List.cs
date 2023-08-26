@@ -116,7 +116,7 @@ namespace Library.DataStructures
 
         public void Insert(int index, TValue item)
         {
-            // item can be inserted at the end
+            // item can be inserted at the end (i.e. index == size)
             if (index > _size)
             {
                 throw new ArgumentOutOfRangeException($"{Caller.MemberNameLocation()} - {nameof(index)}: {index} (size = {_size})");
@@ -137,6 +137,7 @@ namespace Library.DataStructures
                 throw new ArgumentOutOfRangeException($"{Caller.MemberNameLocation()} - {nameof(index)}: {index} (size = {_size})");
             }
 
+            // TODO: fix RemoveAt() when called with index = Count-1 (last item)
             _size--;
             Array.Copy(_items, index + 1, _items, index, _size - index);
         }
@@ -223,6 +224,9 @@ namespace Library.DataStructures
             // copy items
             EnsureCapacity(collection.Count());           
             Array.Copy(collection.ToArray(), _items, collection.Count());
+            // make sure to add them in _after_ the existing elements (if any)
+            //EnsureCapacity(Count + collection.Count());
+            //Array.Copy(collection.ToArray(), 0, _items, _items.Length, collection.Count());
             _size = collection.Count();
         }
 
@@ -247,6 +251,7 @@ namespace Library.DataStructures
 
         public void SwapValues(int index1, int index2)
         {
+            // swap using Tuples
             (_items[index1], _items[index2]) = (_items[index2], _items[index1]);
         }   
 

@@ -66,12 +66,14 @@ namespace Library.DataStructures
 
         protected TValue ParentValue(int index)
         {
+            // TODO: throw InvalidOperationException if called on index = 0
             if (index > 0)
             {
                 return _items[ParentIndex(index)];
             }
             else
             {
+                // TODO: convert all IndexOutOfRangeExceptions to ArgumentOutOfRangeExceptions
                 throw new IndexOutOfRangeException(nameof(index));
             }
         }
@@ -276,11 +278,9 @@ namespace Library.DataStructures
 
         public override void Add(TValue item)
         {
-            // TODO: fix add
             _items.Add(item);
             _heapSize++;
-            Heapify(ParentIndex(_items.Count - 1));
-            //BuildHeap();
+            Heapify(ParentIndex(_items.Count - 1));            
         }
 
         public override void AddRange(IEnumerable<TValue> collection)
