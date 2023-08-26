@@ -10,7 +10,10 @@ namespace Library.Tests
             {
                 new DataStructures.List<TInput>(inputs),
                 new DataStructures.LinkedList<TInput>(inputs),
-                new DataStructures.Heap<TInput>(inputs)
+                new DataStructures.Heap<TInput>(inputs),
+                new DataStructures.MinHeap<TInput>(inputs),
+                new DataStructures.Stack<TInput>(inputs),
+                new DataStructures.Queue<TInput>(inputs)                
             };
         }
     
