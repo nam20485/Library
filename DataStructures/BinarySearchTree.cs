@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace Library.DataStructures
 {
-    internal class BinarySearchTree
+    public class BinarySearchTree<TValue> : Tree<TValue> 
     {
+        public class BinaryNode : Node
+        {
+            public BinaryNode(Node parent, TValue value) : base(parent, value)
+            {
+            }
+        }
+
     }
 }
