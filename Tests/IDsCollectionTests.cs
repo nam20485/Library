@@ -190,7 +190,9 @@ namespace Library.Tests
                         }
                     case IDsCollectionOperations.Type.AddRange:
                         {
+                            var prevCount = collection.Count;
                             collection.AddRange(inputs);
+                            collection.Count.Should().Be(prevCount + inputs.Length);
                             foreach (var input in inputs)
                             {
                                 collection.Contains(input).Should().BeTrue();
