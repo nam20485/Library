@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -79,6 +80,45 @@ namespace Library.Tests
         {
             var list = Utils.MakeList(inputs);
             list.IsSorted(DataStructures.List<int>.SortType.StrictlyDecreasing).Should().Be(expectedResult);
-        }       
+        }
+
+        [Fact]
+        public void Test_AddRange_IntoNonEmptyList()
+        {
+            var inputs = new int[] { 0, 0, 1, 2, 3 };
+            var toAdd = new int[] { 4, 5, 6, 7, 8 };
+
+            var list = new DataStructures.List<int>(inputs);
+            list.Count.Should().Be(inputs.Length);
+
+            list.AddRange(toAdd);
+            list.Count.Should().Be(inputs.Length+ toAdd.Length);
+        }
+
+        [Theory]
+        [InlineData(new int[] { 0 })]
+        [InlineData(new int[] { 0, 1 })]
+        [InlineData(new int[] { 0, 1, 2 })]
+        [InlineData(new int[] { 0, 1, 2, 3, 4 })]
+        public void Test_RemoveAt_LastIndex(int[] inputs)
+        {
+            var list = new DataStructures.List<int>(inputs);
+            list.Count.Should().Be(inputs.Length);
+
+            list.RemoveAt(inputs.Length-1);
+
+            list.Count.Should().Be(inputs.Length - 1);
+        }      
+
+        [Fact]
+        public void Test_RemoveLast_OnEmptyList_ThrowsArgumentOutOfRangeException()
+        {
+            var list = new DataStructures.List<int>();
+
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            {
+                list.RemoveLast();
+            });
+        }
     }
 }
