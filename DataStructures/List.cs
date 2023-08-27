@@ -135,10 +135,11 @@ namespace Library.DataStructures
             {
                 throw new ArgumentOutOfRangeException($"{Caller.MemberNameLocation()} - {nameof(index)}: {index} (size = {_size})");
             }
-
-            // TODO: fix RemoveAt() when called with index = Count-1 (last item)
+            
             _size--;
-            Array.Copy(_items, index + 1, _items, index, _size - index);
+
+            var numToCopy = _size - index;
+            Array.Copy(_items, index + 1, _items, index, numToCopy);
         }
 
         //
@@ -219,14 +220,11 @@ namespace Library.DataStructures
             {
                 throw new ArgumentNullException(nameof(collection));
             }
-
-            // copy items
-            EnsureCapacity(collection.Count());           
-            Array.Copy(collection.ToArray(), _items, collection.Count());
+           
             // make sure to add them in _after_ the existing elements (if any)
-            //EnsureCapacity(Count + collection.Count());
-            //Array.Copy(collection.ToArray(), 0, _items, _items.Length, collection.Count());
-            _size = collection.Count();
+            EnsureCapacity(Count + collection.Count());
+            Array.Copy(collection.ToArray(), 0, _items, Count, collection.Count());
+            _size += collection.Count();
         }
 
         public void AddLast(TValue item)
