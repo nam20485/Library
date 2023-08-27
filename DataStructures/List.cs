@@ -247,9 +247,8 @@ namespace Library.DataStructures
         }
 
         public void SwapValues(int index1, int index2)
-        {
-            // swap using Tuples
-            (_items[index1], _items[index2]) = (_items[index2], _items[index1]);
+        {            
+            _items.Swap(index1, index2);
         }   
 
         public enum SortType
