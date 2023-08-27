@@ -26,8 +26,8 @@ namespace Library.DataStructures
             public Node Parent { get; private set; }
 
             public List<Node> Children { get; }                       
-            public Node? LeftChild => NthChild(0);
-            public Node? RightChild => NthChild(1);
+            public Node? LeftChild => GetNthChild(0);
+            public Node? RightChild => GetNthChild(1);
 
             public Node(Node parent, TValue value)
             {
@@ -42,7 +42,7 @@ namespace Library.DataStructures
                 Children.Add(child);
             }
 
-            public Node? NthChild(int n)
+            public Node? GetNthChild(int n)
             {
                 if (n < Children.Count)
                 {
