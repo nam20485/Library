@@ -6,12 +6,12 @@ namespace Library.Driver
     {
         private static readonly int[][] testCases = new[]
         {
-            new [] { 4, 1, 3, 2, 16, 9, 10, 14, 8, 7 },
+            //new [] { 4, 1, 3, 2, 16, 9, 10, 14, 8, 7 },
             //Array.Empty<int>(),
             //new [] { 0 },
             //new [] { 0, 1 },
             //new [] { 0, 1, 2 },
-            //new [] { 0, 1, 2, 3 }
+            new [] { 0, 1, 2, 3, 4 }
         };
 
         static void Main(/*string[] args*/)
@@ -22,7 +22,8 @@ namespace Library.Driver
                 //TestHeap(testCase);
                 //TestList(testCase);
                 //TestPriorityQueue(testCase);
-                TestMinPriorityQueue(testCase);
+                //TestMinPriorityQueue(testCase);
+                TestCircularBuffer(testCase);
             }         
         }
 
@@ -103,6 +104,15 @@ namespace Library.Driver
             Console.WriteLine($"MinPQ.ToList(): {pq.ToList()}");
 
             Console.WriteLine($"MinPQ.ToArray(): {pq.ToArray()}");
+        }
+
+        private static void TestCircularBuffer(int[] inputs)
+        {
+            var buffer = new CircularBuffer<int>(5);
+            Console.WriteLine(buffer);
+
+            buffer.AddRange(inputs);
+            Console.WriteLine(buffer);
         }
     }
 }
