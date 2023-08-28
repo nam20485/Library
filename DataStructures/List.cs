@@ -355,6 +355,7 @@ namespace Library.DataStructures
                 }
             }
 
+            // empty space in between braces when list is empty
             if (Count == 0)
             {
                 sb.Append(' ');
