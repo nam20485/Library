@@ -354,6 +354,12 @@ namespace Library.DataStructures
                     sb.Append(", ");
                 }
             }
+
+            if (Count == 0)
+            {
+                sb.Append(' ');
+            }
+
             sb.Append(']');
             sb.Append($" ({Count})");
             return sb.ToString();
