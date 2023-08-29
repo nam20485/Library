@@ -12,5 +12,27 @@ namespace Library.Utils
         {
             (array[i], array[j]) = (array[j], array[i]);
         }
+
+        public static void Reverse<T>(this T[] array, int start, int length)
+        {
+            if (start >= 0 && length <= array.Length)
+            {
+                if (length > 1)                
+                {
+                    array.Swap(start, length - 1);                   
+                    array.Reverse(start + 1, length - 2);                    
+                }
+            }
+        }
+
+        public static void Reverse<T>(this T[] array, int start)
+        {
+            array.Reverse(start, array.Length-start);
+        }
+
+        public static void Reverse<T>(this T[] array)
+        {
+            array.Reverse(0);
+        }
     }
 }
