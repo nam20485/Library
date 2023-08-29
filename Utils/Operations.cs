@@ -17,11 +17,9 @@ namespace Library.Utils
 
         public IEnumerator<TEnum> GetEnumerator()
         {
-            var random = new Random();
-
             while (true)
             {
-                yield return TypeValues[random.Next(TypeValues.Length)];
+                yield return NextType();
             }
         }
 
