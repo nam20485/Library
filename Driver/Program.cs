@@ -23,7 +23,8 @@ namespace Library.Driver
                 //TestList(testCase);
                 //TestPriorityQueue(testCase);
                 //TestMinPriorityQueue(testCase);
-                TestCircularBuffer(testCase);
+                //TestCircularBuffer(testCase);
+                TestMultiValueDictionary(testCase);
             }         
         }
 
@@ -113,6 +114,13 @@ namespace Library.Driver
 
             buffer.AddRange(inputs);
             Console.WriteLine(buffer);
+        }
+
+        private static void TestMultiValueDictionary(int[] inputs)
+        {
+            var mvdhash = new MultiValueDictionary<string, string>();
+            var mvdlist = new MultiValueDictionary<string, string>();
+
         }
     }
 }
