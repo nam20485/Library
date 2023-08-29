@@ -1,6 +1,6 @@
 ﻿namespace Library.DataStructures
 {
-    public static class DataStructureExtensions
+    public static class IDsCollectionExtensions
     {     
         public static TSource[] ToArray<TSource>(this IDsCollection<TSource> source)
         {
