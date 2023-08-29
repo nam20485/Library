@@ -28,9 +28,7 @@ namespace Library.DataStructures
         /// <param name="key"><typeparamref name="TKey"/> key to associate value with.</param>
         /// <param name="value"><typeparamref name="TValue"/> to add and associate to given key.</param>
         /// <returns>True if collection was modified (i.e. key and value pair already existed), false otherwise.</returns>
-        bool Add(TKey key, TValue value);
-
-        void SixthMethod();
+        bool Add(TKey key, TValue value);       
         
         /// <summary>
         /// Removes all values associated with given key, if present.
@@ -38,6 +36,13 @@ namespace Library.DataStructures
         /// <param name="key"><typeparamref name="TKey"/> to remvoe values for.</param>
         /// <exception cref="KeyNotFoundException">Provided key is not present.</exception>
         void Remove(TKey key);
+
+        /// <summary>
+        /// Removes a given value, if present.
+        /// </summary>
+        /// <param name="key">Key to remove value from.</param>
+        /// <param name="value">Value to remove.</param>
+        void Remove(TKey key, TValue value);
 
         /// <summary>
         /// Clear all keys and values from the dictionary.
@@ -58,7 +63,7 @@ namespace Library.DataStructures
         /// </summary>
         /// <param name="key"><typeparamref name="TKey"/> to search dictionary for.</param>
         /// <returns>True if dictionary contains key, false otheerwise.</returns>
-        bool ContainsKey(TKey key);
+        //bool ContainsKey(TKey key);
 
         /// <summary>
         /// Determines whether given key and value are present in this dictionary.
@@ -66,6 +71,6 @@ namespace Library.DataStructures
         /// <param name="key"><typeparamref name="TKey"/> to search for.</param>
         /// <param name="value"><typeparamref name="TValue"/> to search for.</param>
         /// <returns>True if given key and value are present in dictionary, false if either key or value are not present.</returns>
-        bool ContainsValue(TKey key, TValue value);
+        //bool ContainsValue(TKey key, TValue value);
     }
 }

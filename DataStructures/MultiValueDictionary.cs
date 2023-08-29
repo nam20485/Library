@@ -2,9 +2,8 @@
 
 namespace Library.DataStructures
 {
-    public class MultiValueDictionary<TKey, TValue/*, TValueCollection*/> : IMultiValueDictionary<TKey, TValue>
+    public class MultiValueDictionary<TKey, TValue> : IMultiValueDictionary<TKey, TValue>
         where TKey: notnull
-        //where TValueCollection : ICollection<TValue>, new()
     {
         private readonly Dictionary<TKey, System.Collections.Generic.HashSet<TValue>> _valuesByKey;
 
@@ -63,11 +62,13 @@ namespace Library.DataStructures
             //return _valuesByKey.Remove(key);
         }
 
-        public void SixthMethod()
+        public void Remove(TKey key, TValue value)
         {
-            // void Remove(TKey, TValue) ???
-            throw new NotImplementedException();
-        }
+            if ( _valuesByKey.ContainsKey(key))
+            {
+                _valuesByKey[key].Remove(value);
+            }
+        }      
 
         public IEnumerable<KeyValuePair<TKey, TValue>> Flatten()
         {
@@ -85,19 +86,19 @@ namespace Library.DataStructures
             return Flatten().GetEnumerator();
         }
    
-        public bool ContainsValue(TKey key, TValue value)
-        {
-            return GetOrDefault(key).Contains(value);
-        }
+        //public bool ContainsValue(TKey key, TValue value)
+        //{
+        //    return GetOrDefault(key).Contains(value);
+        //}
 
-        public bool ContainsKey(TKey key)
-        {
-            return _valuesByKey.ContainsKey(key);
-        }
+        //public bool ContainsKey(TKey key)
+        //{
+        //    return _valuesByKey.ContainsKey(key);
+        //}
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
-        }
+        }      
     }
 }
