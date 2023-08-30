@@ -8,12 +8,12 @@ namespace Library.DataStructures
 {
     public class BinarySearchTree<TValue> : Tree<TValue> 
     {
-        public class BinaryNode : Node
-        {
-            public BinaryNode(Node parent, TValue value) : base(parent, value)
-            {
-            }
-        }
+        //public class BinaryNode : Node
+        //{
+        //    //protected BinaryNode(Node parent, TValue value) : base(parent, value, )
+        //    //{
+        //    //}
+        //}
 
     }
 }
