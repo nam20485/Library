@@ -30,7 +30,7 @@ namespace Library.DataStructures
         }
 
         /// <summary>
-        /// Instantiates a new list with the default capacity.
+        /// Instantiates a new list with the given capacity.
         /// </summary>
         /// <param name="capacity">Capacity for new list.</param>
         public List(int capacity)
