@@ -4,6 +4,11 @@ namespace Library.DataStructures
 {
     public abstract class DsCollectionBase<TValue> : IDsCollection<TValue>
     {
+        //protected DsCollectionBase(IEnumerable<TValue> collection)
+        //{
+        //    AddRange(collection);
+        //}
+
         //
         //  Abstract members all IDsCollection inheritors must implement
         //
@@ -13,6 +18,9 @@ namespace Library.DataStructures
         public abstract bool Contains(TValue item);
         public abstract void Clear();
         public abstract TValue Remove();
+
+        //TODO: add Peek() to all collections
+        //public abstract TValue Peek();
 
         public abstract IEnumerator<TValue> GetEnumerator();
         public abstract IDsCollection<TValue> CopyOf();
