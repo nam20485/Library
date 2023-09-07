@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace Library.DataStructures
 {
     public interface IMultiValueDictionary<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>>
+        where TKey : notnull
     {
         /// <summary>
         /// Retrieves values for given key, if present. Throws <see cref="KeyNotFoundException"/> if key is not present. 
@@ -58,19 +59,19 @@ namespace Library.DataStructures
         // /// <returns>IEnumerabl<KeyValuePair<<typeparamref name="TKey"/>, <typeparamref name="TValue"/>>> of all key-value pairs present in dictionary.></returns>
         IEnumerable<KeyValuePair<TKey, TValue>> Flatten();
       
-        /// <summary>
-        /// Returns whether given key is present and contains values in this dictionary.
-        /// </summary>
-        /// <param name="key"><typeparamref name="TKey"/> to search dictionary for.</param>
-        /// <returns>True if dictionary contains key, false otheerwise.</returns>
+        ///// <summary>
+        ///// Returns whether given key is present and contains values in this dictionary.
+        ///// </summary>
+        ///// <param name="key"><typeparamref name="TKey"/> to search dictionary for.</param>
+        ///// <returns>True if dictionary contains key, false otheerwise.</returns>
         //bool ContainsKey(TKey key);
 
-        /// <summary>
-        /// Determines whether given key and value are present in this dictionary.
-        /// </summary>
-        /// <param name="key"><typeparamref name="TKey"/> to search for.</param>
-        /// <param name="value"><typeparamref name="TValue"/> to search for.</param>
-        /// <returns>True if given key and value are present in dictionary, false if either key or value are not present.</returns>
+        ///// <summary>
+        ///// Determines whether given key and value are present in this dictionary.
+        ///// </summary>
+        ///// <param name="key"><typeparamref name="TKey"/> to search for.</param>
+        ///// <param name="value"><typeparamref name="TValue"/> to search for.</param>
+        ///// <returns>True if given key and value are present in dictionary, false if either key or value are not present.</returns>
         //bool ContainsValue(TKey key, TValue value);
     }
 }
