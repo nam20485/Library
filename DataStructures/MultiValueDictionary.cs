@@ -12,6 +12,15 @@ namespace Library.DataStructures
             _valuesByKey = new ();
         }
 
+        public MultiValueDictionary(IEnumerable<KeyValuePair<TKey, TValue>> collection)
+            : this()
+        {
+            foreach (var kvp in collection)
+            {
+                Add(kvp.Key, kvp.Value);
+            }
+        }
+
         public bool Add(TKey key, TValue value)
         {
             if (! _valuesByKey.ContainsKey(key))
