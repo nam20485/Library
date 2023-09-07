@@ -62,6 +62,8 @@ namespace Library.DataStructures
             // _tail should != null if Count > 0
             var lastValue = _tail.Value;
             RemoveLast();
+            // TODO: remove the _tail.Value explicity?
+            //Remove(lastValue);
             return lastValue;
         }
 
