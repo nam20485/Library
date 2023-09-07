@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
 
 namespace Library.DataStructures
 {
     public class MultiValueDictionary<TKey, TValue> : IMultiValueDictionary<TKey, TValue>
-        where TKey: notnull
+        where TKey : notnull
     {
         private readonly Dictionary<TKey, System.Collections.Generic.HashSet<TValue>> _valuesByKey;
 
@@ -105,7 +105,7 @@ namespace Library.DataStructures
         //    return _valuesByKey.ContainsKey(key);
         //}
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }      

@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library.DataStructures
 {
-    public interface IMultiValueDictionary<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>>
-        where TKey : notnull
+    public interface IMultiValueDictionary<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>>        
     {
         /// <summary>
         /// Retrieves values for given key, if present. Throws <see cref="KeyNotFoundException"/> if key is not present. 
