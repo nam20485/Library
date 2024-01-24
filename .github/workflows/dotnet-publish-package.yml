@@ -1,0 +1,42 @@
+# Pack NuGet package and push to nam20485's package registry
+# https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-nuget-registry
+
+name: Pack and Publish .NET
+
+on:
+  push:
+    branches: [ "master", "development" ]
+
+env:
+  VERSION: ${{ vars.VERSION_PREFIX }}.${{ github.run_number }}
+
+jobs:
+  pack-and-push:
+
+    runs-on: ubuntu-22.04
+    permissions:
+      packages: write
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0.400
+
+    - name: Build
+      run: dotnet build DataStructures --configuration Release /p:Version=${{ env.VERSION }} 
+
+    - name: Pack NuGet Package
+      run: dotnet pack DataStructures --include-symbols --configuration Release --no-build --no-restore /p:Version=${{ env.VERSION }}    
+
+    - name: Add NuGet Source
+      run: |
+        dotnet nuget add source --username nam20485 --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/nam20485/index.json"
+
+    - name: Push Package
+      run: |
+        dotnet nuget push "DataStructures/bin/Release/DataStructures.${{ env.VERSION }}.nupkg" --source "github"
+        dotnet nuget push "DataStructures/bin/Release/DataStructures.${{ env.VERSION }}.snupkg" --source "github"
+ 
+        
