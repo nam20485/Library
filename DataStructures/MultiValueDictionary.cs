@@ -57,7 +57,9 @@ namespace Library.DataStructures
         {
             if (!_valuesByKey.ContainsKey(key))
             {
-                return default;
+                // can't use default(IEnumerable<TValue>) b/c default(IEnumerable<string>) is null
+                //return default;
+                return new List<TValue>();
             }
             else
             {
@@ -81,18 +83,25 @@ namespace Library.DataStructures
 
         public IEnumerable<KeyValuePair<TKey, TValue>> Flatten()
         {
+            var list = new List<KeyValuePair<TKey, TValue>>();
+
             foreach (var kvp in _valuesByKey)
             {
                 foreach (var value in kvp.Value)
                 {
-                    yield return new KeyValuePair<TKey, TValue> (kvp.Key, value);
+                    list.Add(new KeyValuePair<TKey, TValue> (kvp.Key, value));
                 }
             }
+
+            return list;
         }
 
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
-            return Flatten().GetEnumerator();
+            foreach (var kvp in Flatten())
+            {
+                yield return kvp;
+            }
         }
    
         //public bool ContainsValue(TKey key, TValue value)

@@ -14,7 +14,8 @@ namespace Library.DataStructures
             // add everything from other to this
             foreach (var kvp in other)
             {
-                @this.Add(kvp.Key, kvp.Value);
+                //if (!@this.GetOrDefault(kvp.Key).Contains(kvp.Value))
+                    @this.Add(kvp.Key, kvp.Value);
             }
         }
 
@@ -64,18 +65,32 @@ namespace Library.DataStructures
             // differnce(this, other) + difference(other, this)
             // + = union
 
-            foreach (var kvp in @this)
-            {
-                if (other.GetOrDefault(kvp.Key).Contains(kvp.Value))
-                {
-                    @this.Remove(kvp.Key, kvp.Value);
-                    other.Remove(kvp.Key, kvp.Value);
-                }
-            }
+            //foreach (var kvp in @this)
+            //{
+            //    if (other.GetOrDefault(kvp.Key).Contains(kvp.Value))
+            //    {
+            //        @this.Remove(kvp.Key, kvp.Value);
+            //        //other.Remove(kvp.Key, kvp.Value);
+            //    }
+            //}
 
-            foreach (var kvp in other)
+            //foreach (var kvp in other)
+            //{
+            //    @this.Add(kvp.Key, kvp.Value);
+            //}
+
+            // remove elements in both, and add any elements in other that are not in this
+
+            foreach (var otherKvp in other)
             {
-                @this.Add(kvp.Key, kvp.Value);
+                if (@this.GetOrDefault(otherKvp.Key).Contains(otherKvp.Value))
+                {
+                    @this.Remove(otherKvp.Key, otherKvp.Value);
+                }
+                else
+                {
+                    @this.Add(otherKvp.Key, otherKvp.Value);
+                }
             }
            
             //@this.ExceptWith(other);
@@ -84,6 +99,18 @@ namespace Library.DataStructures
 
             //@this.UnionWith(@this.ExceptWith(other), other.ExceptWith(@this);
         }
+
+        //public static bool Contains<TKey, TValue>(this MultiValueDictionary<TKey, TValue> @this, TKey key, TValue value)
+        //   where TKey : notnull
+        //{
+        //    return @this.GetOrDefault(key).Contains(value);
+        //}
+
+        //public static bool Contains<TKey, TValue>(this MultiValueDictionary<TKey, TValue> @this, TKey key)
+        //   where TKey : notnull
+        //{
+        //    return @this.GetOrDefault(key).Any();
+        //}
 
         public static void DifferenceWith<TKey, TValue>(this MultiValueDictionary<TKey, TValue> @this, MultiValueDictionary<TKey, TValue> other)
             where TKey : notnull
