@@ -5,6 +5,7 @@ namespace Library.Tests
     internal class Utils
     {
         public static IEnumerable<IDsCollection<TInput>> MakeIDsCollections<TInput>(TInput[] inputs)
+            where TInput : notnull
         {
             return new IDsCollection<TInput>[]
             {
@@ -13,7 +14,8 @@ namespace Library.Tests
                 new DataStructures.Heap<TInput>(inputs),
                 new DataStructures.MinHeap<TInput>(inputs),
                 new DataStructures.Stack<TInput>(inputs),
-                new DataStructures.Queue<TInput>(inputs)                
+                new DataStructures.Queue<TInput>(inputs),
+                //new DataStructures.Set<TInput>(inputs)
             };
         }
     

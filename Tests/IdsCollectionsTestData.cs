@@ -5,6 +5,7 @@ using System.Linq;
 namespace Library.Tests
 {
     public abstract class IDsCollectionsTestData<TInput> : IEnumerable<object[]>
+        where TInput : notnull
     {
         protected abstract TInput[][] Inputs { get; }
        
@@ -18,6 +19,7 @@ namespace Library.Tests
                 yield return new object[] { new DataStructures.MinHeap<TInput>(), inputs };
                 yield return new object[] { new DataStructures.Queue<TInput>(), inputs };
                 yield return new object[] { new DataStructures.Stack<TInput>(), inputs };
+                //yield return new object[] {new DataStructures.Set<TInput>(), inputs };
 
                 //yield return new object[] { new DataStructures.PriorityQueue<TInput, TInput>(), inputs };
                 //yield return new object[] { new DataStructures.MinPriorityQueue<TInput, TInput>(), inputs };
